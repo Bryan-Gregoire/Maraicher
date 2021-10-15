@@ -1,1 +1,1 @@
-{{dd($offers)}}
+{{dd($user,$offers)}}
