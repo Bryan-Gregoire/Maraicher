@@ -20,8 +20,7 @@ class CreateOffersTable extends Migration
             $table->integer("quantity");
             $table->dateTime("expirationDate");
             $table->string("address");
-            $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
