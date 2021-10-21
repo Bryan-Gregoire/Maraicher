@@ -1,33 +1,64 @@
+#offers {
+    margin-top: 60px;
+    display: none;
+}
 
 #offers_list {
-    margin: 0 auto;
+    margin: 60px auto;
     width: 70%;
-    padding: 1em;
     text-align: center;
+    border-collapse: collapse;
 }
 
-#offers_list th, #students_list td {
+#offers_list tr td, #offers_list tr th {
     padding: 1em;
-    margin: 0;
 }
 
-#offers_list th {
-    background: #008000;
+#offers_list tr th {
+    background: #54b17d;
     color: white;
 }
 
-#offers_list td {
-    background: #008000;
+#offers_list tr:nth-child(odd) td {
+    background: #9cd3b4;
 }
 
-#offers_list td:nth-child(odd) {
-    background:#008000;
+#offers_list tr:nth-child(even) td {
+    background: #abd5bd;
 }
 
-#myOffers {
+.btn {
+    transition: background-color .3s;
+    min-width: 60px;
+    border-radius: .5em;
+    padding: .7em;
     color: white;
     cursor: pointer;
-    width: 3%;
-    font-family: Arial, serif;
+}
 
+.btn-green {
+    background: #06cb06;
+    border: 1px solid #08b308;
+
+}
+
+.btn-green:hover {
+    background: #08b308;
+}
+
+.btn-green:active {
+    background: #0d930d;
+}
+
+.btn-red {
+    background: #eb2c2c;
+    border: 1px solid #b71b1b;
+}
+
+.btn-red:hover {
+    background: #b71b1b;
+}
+
+.btn-red:active {
+    background: #891515;
 }

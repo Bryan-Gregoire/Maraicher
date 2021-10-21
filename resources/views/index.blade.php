@@ -1,57 +1,54 @@
 @extends('canvas')
-@section('title', 'Authentification')
-@section('title_header', 'Connexion au Maraîcher-Esi')
-
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}">
-@endsection
+@section('title', 'Authentication')
+@section('title_header', 'Connection on Maraîcher-ESI')
 
 @section('content')
     <div id="login">
-        <form action="/web/offers" method="POST">
-            <div class="container">
-                <input type="text" placeholder="Enter Username" name="uname" required>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-                <button id="button_login" type="submit">Login</button>
-            </div>
+        <!-- <div class="alert success">Ceci est un succes</div> -->
+
+        <form action="{{ route('login') }}" method="POST">
+            @CSRF
+            <input type="email" placeholder="Email" name="email" required autofocus>
+            <input type="password" placeholder="Password" name="password" required>
+            <label for="remember_me">
+                <input id="remember_me" type="checkbox" name="remember">Remember me
+            </label>
+            <button class="btn-submit">Login</button>
         </form>
-        <div class="container">
-            <button id="inscription" type="button">Pas de compte ?</button>
-        </div>
+        <div id="button_not_account">Not account ?</div>
     </div>
+
     <div id="register">
-        <form action="/web/offers" method="POST" >
-            <div class="container">
-                <input type="text" placeholder="Enter Username" name="uname" required>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-                <input type="password" placeholder="Repete Password" name="repetepsw" required>
-                <input type="text" placeholder="Enter your email" name="gmail" required>
-                <button type="submit">Login</button>
+        <!-- <div class="alert error">Ceci est une erreur de register</div> -->
 
-            </div>
+        <form action="" method="POST">
+            @CSRF
+            <input type="text" placeholder="Name" name="name" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="password" placeholder="Password" name="password" required>
+            <input type="password" placeholder="Repeat password" name="password_confirmation" required>
+            <button class="btn-submit">Register</button>
         </form>
-        <div class="container">
-            <button id="connexion" type="button" >Déjà un compte ?</button>
-        </div>
+        <div id="button_already_account">Already account ?</div>
     </div>
+@endsection
 
-    <script
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous"></script>
-
+@section('script')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $("#inscription").on('click',function(){
-            $("#register").show()
-            $("#login").hide()
-            $("header h1").text("Inscription au Maraîcher-Esi")
-        })
+        $(window).on('load', function () {
+            $("#button_not_account").on('click', function () {
+                $("#register").show()
+                $("#login").hide()
+                $("header h1").text("Register on Maraîcher-ESI")
+            })
 
-        $("#connexion").on('click',function(){
-            $("#register").hide()
-            $("#login").show()
-            $("header h1").text("Connexion au Maraîcher-Esi")
+            $("#button_already_account").on('click', function () {
+                $("#register").hide()
+                $("#login").show()
+                $("header h1").text("Connection on Maraîcher-ESI")
+            })
         })
     </script>
 @endsection
