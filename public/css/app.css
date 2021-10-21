@@ -1,0 +1,66 @@
+form {
+    width:40%;
+    margin :0;
+    display: inline-block;
+
+}
+
+h1 {
+    text-shadow: 2px -1px 20px aliceblue;
+    background-color: #87b387;
+    color: #f7fafc;
+    background-size:cover ;
+    margin : 0 auto;
+    padding: 30px;
+    font-family: Arial, serif;
+}
+
+body{
+    margin : 0 auto;
+    text-align: center;
+    background-size: cover;
+    background:url("trees.png");
+    font-family: Arial, serif;
+
+
+}
+#register{
+    display: none   ;
+
+}
+
+input[type=text], input[type=password]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border: 3px solid #ccc;
+    box-sizing: border-box;
+}
+
+#button_login{
+    font-size: 20px;
+}
+button {
+    background-color: #112f11;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 5px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-family: Arial, serif;
+
+}
+#inscription,#connexion{
+    width: 40%;
+}
+
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}

@@ -1,0 +1,33 @@
+
+#offers_list {
+    margin: 0 auto;
+    width: 70%;
+    padding: 1em;
+    text-align: center;
+}
+
+#offers_list th, #students_list td {
+    padding: 1em;
+    margin: 0;
+}
+
+#offers_list th {
+    background: #008000;
+    color: white;
+}
+
+#offers_list td {
+    background: #008000;
+}
+
+#offers_list td:nth-child(odd) {
+    background:#008000;
+}
+
+#myOffers {
+    color: white;
+    cursor: pointer;
+    width: 3%;
+    font-family: Arial, serif;
+
+}
