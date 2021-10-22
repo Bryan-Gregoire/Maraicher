@@ -20,7 +20,15 @@
 <nav>
     <a href="/offers"><i class="fa fa-list"></i> Offers</a>
     <a href="/offers/myOffers"><i class="fa fa-address-book"></i> Account</a>
-    <a href="/"><i class="fa fa-sign-out"></i> Sign out</a>
+    <a href="/"><i class="fa fa-sign-out"></i> <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <x-responsive-nav-link :href="route('logout')"
+                                   onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                {{ __('Log Out') }}
+            </x-responsive-nav-link>
+        </form></a>
 
 </nav>
 

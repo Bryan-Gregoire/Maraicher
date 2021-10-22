@@ -24,7 +24,6 @@ Route::get('/offers', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::resource('offers', OfferController::class);
 Route::get('/my', [OfferController::class, 'index_personal'])->name('offers.myOffers');
 
 

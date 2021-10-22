@@ -5,6 +5,11 @@
 @section('content')
     <div id="login">
         <!-- <div class="alert success">Ceci est un succes</div> -->
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+
+        <!-- Validation Errors -->
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
         <form action="{{ route('login') }}" method="POST">
             @CSRF
@@ -21,20 +26,6 @@
     <div id="register">
         <!-- <div class="alert error">Ceci est une erreur de register</div> -->
 
-        @if ($errors->any())
-            <div>
-                <div class="font-medium text-red-600">
-                    {{ __('Whoops! Something went wrong.') }}
-                </div>
-                <div class="alert error">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        @endif
         <form action="{{route('register')}}" method="POST">
             @CSRF
             <input type="text" placeholder="Name" name="name" required>
