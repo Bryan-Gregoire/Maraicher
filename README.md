@@ -56,6 +56,7 @@ php artisan serve
     npm run dev
 
 ## link to access the project
+    https://maraicher-esi.herokuapp.com/
  
 ## Contributors
     - 54892 Yassin Talhaoui 
