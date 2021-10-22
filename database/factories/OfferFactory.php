@@ -27,7 +27,7 @@ class OfferFactory extends Factory
             'title'=>$faker->fruitName(),
             'price'=>$faker->numberBetween(2,20),
             'quantity'=>$faker->numberBetween(1,20),
-            'expirationDate'=>$faker->dateTime('Y-m-d'),
+            'expirationDate'=>$faker->dateTimeBetween('-1 month','+1 month')->format('Y-m-d H:i:s'),
             'address'=>$faker->address(),
         ];
     }
