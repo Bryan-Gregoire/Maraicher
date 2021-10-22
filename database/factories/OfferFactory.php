@@ -22,7 +22,11 @@ class OfferFactory extends Factory
     public function definition()
     {
         return [
-
+            'title'=>$this->faker->text,
+            'price'=>$this->faker->randomFloat(2,1,20),
+            'quantity'=>$this->faker->numberBetween(1,100),
+            'expirationDate'=>$this->faker->dateTime,
+            'address'=>$this->faker->address
         ];
     }
 }

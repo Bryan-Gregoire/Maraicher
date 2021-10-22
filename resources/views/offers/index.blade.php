@@ -7,18 +7,8 @@
 @endsection
 
 @section('content')
-    {{dd($offers)}}
     <table id="offers_list">
-        @foreach($offers as $offer)
-            <tr>
-                <td>{{$offer->id}}</td>
-                <td>{{$offer->title}}</td>
-                <td>{{$offer->price}}</td>
-                <td>{{$offer->expirationDate}}</td>
-                <td>{{$offer->address}}</td>
-                <td>{{$offer->user_id}}</td>
-            </tr>
-        @endforeach
+
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -29,34 +19,22 @@
             <th>Action</th>
         </tr>
 
-        <tr>
-            <td>1</td>
-            <td>Légumes</td>
-            <td>10x</td>
-            <td>15 €</td>
-            <td>5 days</td>
-            <td>Billal ZIDI</td>
-            <td>
-                <form action="/buy" type="POST">
-                    @CSRF
-                    <button class="btn btn-green">Buy</button>
-                </form>
-            </td>
-        </tr>
+        @foreach($offers as $offer)
+            <tr>
+                <td>{{$offer->id}}</td>
+                <td>{{$offer->title}}</td>
+                <td>{{$offer->price}}</td>
+                <td>{{$offer->expirationDate}}</td>
+                <td>{{$offer->address}}</td>
+                <td>{{$offer->user_id}}</td>
+                <td>
+                    <form action="/buy/{{$offer->id}}" method="POST">
+                        @CSRF
+                        <button class="btn btn-green">Buy</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
 
-        <tr>
-            <td>2</td>
-            <td>Fruits</td>
-            <td>1x</td>
-            <td>1 €</td>
-            <td>1 day</td>
-            <td>Dylan BRICAR</td>
-            <td>
-                <form action="/buy" method="POST">
-                    @CSRF
-                    <button class="btn btn-green">Buy</button>
-                </form>
-            </td>
-        </tr>
     </table>
 @endsection()
