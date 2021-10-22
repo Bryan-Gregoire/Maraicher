@@ -12,10 +12,11 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Amount</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Time left</th>
-            <th>Provider</th>
+            <th>Offer address</th>
+            <th>User</th>
             <th>Action</th>
         </tr>
 
@@ -23,10 +24,11 @@
             <tr>
                 <td>{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
-                <td>{{$offer->price}}</td>
+                <td>{{$offer->quantity}}</td>
+                <td>{{$offer->price}} €</td>
                 <td>{{$offer->expirationDate}}</td>
                 <td>{{$offer->address}}</td>
-                <td>{{$offer->user_id}}</td>
+                <td>{{$offer->user->name}}</td>
                 <td>
                     <form action="/buy/{{$offer->id}}" method="POST">
                         @CSRF

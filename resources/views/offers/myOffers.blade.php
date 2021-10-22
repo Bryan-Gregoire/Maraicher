@@ -11,15 +11,18 @@
     <div id="addOffer" class="normal-btn" style="width: 50%; margin: 0 auto; margin-top: 60px;">
         Add an offer
     </div>
+    @if (Session::has('success'))
+        <div class="alert success">{{Session::get('success')}}</div>
+    @endif
     @if (Session::has('error'))
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
     <form id="offers" action="{{route('offers.store')}}" method="POST">
         @CSRF
         <input type="text" placeholder="Name" name="name" required>
-        <input type="number" placeholder="Amount" name="amount" required>
+        <input type="text" placeholder="Amount" name="amount" required>
         <input type="number" placeholder="Price" name="price" required>
-        <input type="date" name="timeleft" required>
+        <input type="date" name="timeleft" required id="myDate">
         <input type="text" placeholder="address" name="address" required>
         <button class="btn-submit">Add an offer</button>
     </form>
@@ -28,7 +31,7 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Amount</th>
+            <th>Quantity</th>
             <th>Price</th>
             <th>Time left</th>
             <th>Offer address</th>
@@ -39,7 +42,7 @@
                 <td>{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
-                <td>{{$offer->price}}</td>
+                <td>{{$offer->price}} €</td>
                 <td>{{$offer->expirationDate}}</td>
                 <td>{{$offer->address}}</td>
                 <td>
@@ -64,6 +67,9 @@
                 $("#addOffer").hide()
             })
         })
+        document.getElementById("myDate").min
+            = new Date().getFullYear() + "-" + parseInt(new Date().getMonth() + 1) + "-"
+            + new Date().getDate()
     </script>
 @endsection
 

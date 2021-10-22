@@ -17,7 +17,7 @@ class CreateOffersTable extends Migration
             $table->id();
             $table->string("title");
             $table->double("price");
-            $table->integer("quantity");
+            $table->string("quantity");
             $table->dateTime("expirationDate");
             $table->string("address");
             $table->foreignId('user_id');

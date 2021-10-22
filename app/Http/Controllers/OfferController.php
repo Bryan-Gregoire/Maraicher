@@ -17,14 +17,14 @@ class OfferController extends Controller
      */
     public function index()
     {   //ORDER BY => choisir le critère d'ordre
-        $offers = Offer::orderBy('expirationDate', 'desc')->get();
-        return view('offers.index')->with(['user' => auth()->id(), 'offers' => $offers]);
+        $offers = Offer::orderBy('expirationDate', 'desc')->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
+        return view('offers.index')->with(['offers' => $offers]);
     }
 
     public function index_personal()
     {
         $user = auth()->user();
-        $offers = Offer::where('user_id', $user->id)->orderBy('expirationDate', 'desc')->get();
+        $offers = Offer::where('user_id', $user->id)->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->orderBy('expirationDate', 'desc')->get();
         return view('offers.myOffers')->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
@@ -48,7 +48,7 @@ class OfferController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'name' => 'required|min:3|max:255',
-            'amount' => 'required|numeric',
+            'amount' => 'required',
             'price' => 'required|numeric',
             'timeleft' => 'required|date',
             'address' => 'required|min:3|max:255'
@@ -66,7 +66,7 @@ class OfferController extends Controller
             'address' => $request['address'],
             'user_id' => auth()->id()
         ]);
-        return redirect(route('offers.myOffers'))->with('succes', 'New offer added !');
+        return redirect(route('offers.myOffers'))->with('success', 'New offer added !');
     }
 
     /**
