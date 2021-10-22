@@ -3,7 +3,7 @@
 @section('title_header',  'Listing my offers on Maraîcher-ESI')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/allOffers.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/allOffers.css') }}">
 @endsection
 
 @section('content')
