@@ -18,14 +18,14 @@ class OfferController extends Controller
     public function index()
     {   //ORDER BY => choisir le critère d'ordre
         $offers = Offer::orderBy('expirationDate')->get();
-        return view('offers.index')->with(['user' => auth()->id(), 'offers' => $offers]);
+        return view('offers.index')->with(['user' => auth()->id(), 'offers' => "Hello"]);
     }
 
     public function index_personal()
     {
         $user = auth()->user();
         $offers = Offer::where('user_id', $user->id)->orderBy('expirationDate')->get();
-        return view('offers.index')->with(['user' => auth()->id(), 'offers' => $offers]);
+        return view('offers.myOffers')->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
     /**

@@ -22,6 +22,7 @@
     </form>
 
     <table id="offers_list">
+       {{dd($offers)}}
         <tr>
             <th>ID</th>
             <th>Name</th>

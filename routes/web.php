@@ -17,14 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+Route::resource('offers', OfferController::class)->middleware(['auth']);
 
-Route::get('/offers', function () {
-    return view('offers.index');
-})->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 
-Route::get('/my', [OfferController::class, 'index_personal'])->name('offers.myOffers');
+Route::get('/my', [OfferController::class, 'index_personal'])->middleware(['auth'])->name('offers.myOffers');
 
 
 

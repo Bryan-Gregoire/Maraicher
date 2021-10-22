@@ -7,7 +7,18 @@
 @endsection
 
 @section('content')
+    {{dd($offers)}}
     <table id="offers_list">
+        @foreach($offers as $offer)
+            <tr>
+                <td>{{$offer->id}}</td>
+                <td>{{$offer->title}}</td>
+                <td>{{$offer->price}}</td>
+                <td>{{$offer->expirationDate}}</td>
+                <td>{{$offer->address}}</td>
+                <td>{{$offer->user_id}}</td>
+            </tr>
+        @endforeach
         <tr>
             <th>ID</th>
             <th>Name</th>
