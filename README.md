@@ -51,10 +51,6 @@ php artisan serve
     ```bash
     php artisan test --env=testing
     ```
-## npm installation (for bootstrap)
-    npm i
-    npm run dev
-
 ## link to access the project
     https://maraicher-esi.herokuapp.com/
  

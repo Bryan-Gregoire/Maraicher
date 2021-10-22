@@ -11,6 +11,10 @@ nav {
     text-align: center;
 }
 
+nav form {
+    display: inline;
+}
+
 nav a {
     text-decoration: none !important;
     color: white;

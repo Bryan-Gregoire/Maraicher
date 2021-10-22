@@ -17,15 +17,15 @@ class OfferController extends Controller
      */
     public function index()
     {   //ORDER BY => choisir le critère d'ordre
-        $offers = Offer::orderBy('expirationDate')->get();
+        $offers = Offer::orderBy('expirationDate', 'desc')->get();
         return view('offers.index')->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
     public function index_personal()
     {
         $user = auth()->user();
-        $offers = Offer::where('user_id', $user->id)->orderBy('expirationDate')->get();
-        return view('offers.index')->with(['user' => auth()->id(), 'offers' => $offers]);
+        $offers = Offer::where('user_id', $user->id)->orderBy('expirationDate', 'desc')->get();
+        return view('offers.myOffers')->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
     /**
@@ -42,11 +42,31 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|min:3|max:255',
+            'amount' => 'required|numeric',
+            'price' => 'required|numeric',
+            'timeleft' => 'required|date',
+            'address' => 'required|min:3|max:255'
+        ]);
 
+        if ($validator->fails()) {
+            return redirect(route('offers.myOffers'))->with('error', "We cannot add the offer");
+        }
+
+        $offer = Offer::create([
+            'title' => $request['name'],
+            'price' => $request['price'],
+            'quantity' => $request['amount'],
+            'expirationDate' => $request['timeleft'],
+            'address' => $request['address'],
+            'user_id' => auth()->id()
+        ]);
+        return redirect(route('offers.myOffers'))->with('succes', 'New offer added !');
     }
 
     /**
@@ -87,10 +107,11 @@ class OfferController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Offer $offer
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function destroy(Offer $offer)
     {
-        //
+        $offer->delete();
+        return redirect(route('offers.myOffers'))->with('Success', "The offer has been deleted.");
     }
 }

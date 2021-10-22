@@ -4,7 +4,15 @@
 
 @section('content')
     <div id="login">
-        <!-- <div class="alert success">Ceci est un succes</div> -->
+        @if ($errors->any())
+            <div class="alert error">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('login') }}" method="POST">
             @CSRF
@@ -21,7 +29,7 @@
     <div id="register">
         <!-- <div class="alert error">Ceci est une erreur de register</div> -->
 
-        <form action="" method="POST">
+        <form action="{{route('register')}}" method="POST">
             @CSRF
             <input type="text" placeholder="Name" name="name" required>
             <input type="email" placeholder="Email" name="email" required>

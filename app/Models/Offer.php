@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Offer extends Model
 {
     use HasFactory;
-    protected $fillable = ['title','price','quantity','expirationDate','address'];
 
-    public function user(){
+    protected $fillable = ['title', 'price', 'quantity', 'expirationDate', 'address', 'user_id'];
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
