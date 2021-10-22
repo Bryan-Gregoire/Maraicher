@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/dashboard', function () {
@@ -26,3 +26,6 @@ require __DIR__ . '/auth.php';
 
 Route::resource('offers', OfferController::class);
 Route::get('/my', [OfferController::class, 'index_personal'])->name('offers.myOffers');
+
+
+
