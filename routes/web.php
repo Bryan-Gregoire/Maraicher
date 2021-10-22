@@ -18,8 +18,8 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+Route::get('/offers', function () {
+    return view('offers.index');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
