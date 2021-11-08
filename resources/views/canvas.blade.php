@@ -12,20 +12,20 @@
 
 <body>
 <header>
-        <h1>@yield('title_header')</h1>
+    <h1>@yield('title_header')</h1>
 </header>
 
 @auth
-<nav>
-    <a href="/offers"><i class="fa fa-list"></i> Offers</a>
-    <a href="/my"><i class="fa fa-address-book"></i> Account</a>
-    <form method="POST" action="{{ route('logout') }}">
-        @CSRF
-        <a href="" onclick="event.preventDefault(); this.closest('form').submit();">
-            <i class="fa fa-sign-out"></i> Log out
-        </a>
-    </form>
-</nav>
+    <nav>
+        <a href="/offers"><i class="fa fa-list"></i> Offers</a>
+        <a id="account" href="/my"><i class="fa fa-address-book"></i> Account</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @CSRF
+            <a id="logOut" href="" onclick="event.preventDefault(); this.closest('form').submit();">
+                <i class="fa fa-sign-out"></i> Log out
+            </a>
+        </form>
+    </nav>
 @endauth
 
 <main>

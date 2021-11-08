@@ -120,59 +120,34 @@ class HomeTest extends DuskTestCase
         });
     }
 
-    public function test_offers_visible()
+    public function test_correct_new_registration()
     {
-        $this->artisan('db:wipe');
-        $this->artisan("migrate:fresh");
-        $admin = User::create([
-            'email' => 'admin@admin.com',
-            'password' => 'adminpassword',
-            'name' => "admin"
-        ]);
-        $offersMake = Offer::factory()->count(25)->make();
-        foreach ($offersMake as $offer) {
-            $offer->user_id = $admin->id;
-            $offer->save();
-        }
-        $this->browse(function (Browser $browser) use ($admin) {
-            //Logging in, if not already logged in
+        $this->artisan("migrate:fresh --seed");
+        $newUser = User::factory()->make();
+        $newUser->password = "password";
+        $this->browse(function (Browser $browser) use ($newUser) {
             $path = parse_url($browser->driver->getCurrentURL())['path'];
-            if (!\Str::endsWith($path, '/offers')) {
-                $browser->visit('/')
-                    ->type('email', $admin->email)
-                    ->type("password", "adminpassword")
-                    ->press("Login");
+            $browser->visit('/');
+            if (\Str::endsWith($path, '/offers')) {
+                $browser->click("#logOut");
             }
-            //Seeing the listing
-            $browser->assertSee('OFFERS')
-                ->assertSee('ACCOUNT')
-                ->assertSee('LOG OUT')
-                ->assertSee('Name')
-                ->assertSee('Quantity')
-                ->assertSee('Price')
-                ->assertSee('Time left')
-                ->assertSee('Offer address')
-                ->assertSee('User')
-                ->assertSee('Action');
-            //Give time for the API to reload
-            //$browser->refresh();
-            $browser->pause(5000);
-            $offers = Offer::orderBy('expirationDate', 'desc')
-                ->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
-            foreach ($offers as $offer) {
-                $browser
-                    ->refresh()
-                    ->assertSee("$offer->id")
-                    ->assertSee("$offer->title")
-                    ->assertSee("$offer->quantity")
-                    ->assertSee("$offer->price")
-                    ->assertSee("$offer->expirationDate")
-                    //Address doesn't show properly
-                    //->assertSee("$offer->address")
-                    ->assertPresent("button.btn.btn-green")
-                    ->assertSee('Buy');
-            }
+            $browser->visit('/');
+            $browser->click('#button_not_account')
+                ->type('name', $newUser->name)
+                ->type("#registerEmail", $newUser->email)
+                ->type("#registerPassword", $newUser->password)
+                ->type("password_confirmation", $newUser->password)
+                ->press("Register")
+                //If user is correct, the page should redirect to the /offers page, and
+                //the listing of offers should be present
+                ->assertPathIs('/offers')
+                ->assertSee("Listing all offers of Maraîcher-ESI");
         });
+        $this->assertDatabaseHas('users', [
+            'name' => $newUser->name,
+            'email' => $newUser->email
+        ]);
     }
+
 
 }

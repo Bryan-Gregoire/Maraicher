@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Offer;
-use Illuminate\Database\Eloquent\Factories\Factory ;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OfferFactory extends Factory
 {
@@ -24,12 +24,11 @@ class OfferFactory extends Factory
         $faker = \Faker\Factory::create('fr_BE');
         $faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($faker));
         return [
-
-            'title' => rand()==0?$faker->fruitName():$faker->vegetableName(),
-            'price'=>$faker->randomFloat(2,0.5,20),
-            'quantity'=>$faker->numberBetween(1,20),
-            'expirationDate'=>$faker->dateTimeBetween('-1 month','+1 month')->format('Y-m-d H:i:s'),
-            'address'=>$faker->address(),
+            'title' => rand(0, 1) == 0 ? $faker->fruitName() : $faker->vegetableName(),
+            'price' => $faker->randomFloat(2, 0.5, 20),
+            'quantity' => $faker->text(10),
+            'expirationDate' => $faker->dateTimeBetween('-1 month', '+1 month')->format('Y-m-d H:i:s'),
+            'address' => $faker->address(),
         ];
     }
 

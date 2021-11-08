@@ -37,9 +37,9 @@
             <th>Offer address</th>
             <th>Action</th>
         </tr>
-        @foreach($offers as $offer)
+        @foreach($offers as $count=> $offer)
             <tr>
-                <td>{{$offer->id}}</td>
+                <td id="offerID{{$count}}">{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
