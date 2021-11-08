@@ -101,11 +101,10 @@ class OfferTest extends DuskTestCase
                 if ($offer->user->id != $admin->id) {
                     for ($i = 0; $i <= $userOffers; $i++) {
                         $browser
-//                            ->assertDontSeeIn("#tableID" . $i, "$offer->id")
+                            //                            ->assertDontSeeIn("#tableID" . $i, "$offer->id")
                             ->assertNotPresent("button.btn.btn-green")
                             ->assertDontSee('Buy');
                     }
-
                 } else {
                     for ($i = 0; $i <= $userOffers; $i++) {
                         $browser
@@ -123,4 +122,22 @@ class OfferTest extends DuskTestCase
         });
     }
 
+    public function test_Add_Offer()
+    {
+        $admin = User::find(1);
+        $this->browse(function (Browser $browser) use ($admin) {
+            $browser->click('#addOffer')->type('name', 'test')
+                ->type('amount', '75 kg')
+                ->type('price', 25.99)
+                ->type('address', 'rue royal 67 botanique')
+                ->press('Add an offer');
+        });
+        $this->assertDatabaseHas("offers", [
+            'title' => 'test',
+            'quantity' => '75kg',
+            'price' => 25.99,
+            'address' => 'rue royal 67 botanique',
+            'user_id' => 1
+        ]);
+    }
 }
