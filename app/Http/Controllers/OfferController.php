@@ -17,15 +17,19 @@ class OfferController extends Controller
      */
     public function index()
     {   //ORDER BY => choisir le critère d'ordre
-        $offers = Offer::orderBy('expirationDate', 'desc')->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
+        $offers = Offer::orderBy('expirationDate', 'desc')->where('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
         return view('offers.index')->with(['offers' => $offers]);
     }
 
     public function index_personal()
     {
         $user = auth()->user();
-        $offers = Offer::where('user_id', $user->id)->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->orderBy('expirationDate', 'desc')->get();
-        return view('offers.myOffers')->with(['user' => auth()->id(), 'offers' => $offers]);
+        $offers = Offer::where('user_id', $user->id)
+            ->where('expirationDate', '>=', date('Y-m-d H:i:s'))
+            ->orderBy('expirationDate', 'desc')
+            ->get();
+        return view('offers.myOffers')
+            ->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
     /**
