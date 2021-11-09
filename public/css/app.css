@@ -1,0 +1,126 @@
+body {
+    margin: 0 auto;
+    font-family: Arial, serif;
+    background: #d8e3da;
+}
+
+nav {
+    width: 100%;
+    background-color: #4ca171;
+    padding: 15px;
+    text-align: center;
+}
+
+nav form {
+    display: inline;
+}
+
+nav a {
+    text-decoration: none !important;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: #33955d;
+    padding: 15px 26px 16px 26px;
+    margin-left: -10px;
+}
+
+nav a:hover {
+    background: #1c7644;
+    transition: background .3s;
+}
+
+h1 {
+    text-shadow: 2px -1px 20px aliceblue;
+    background: #53b17d;
+    color: #f7fafc;
+    background-size: cover;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: Arial, serif;
+    text-align: center;
+}
+
+#register {
+    display: none;
+}
+
+form {
+    width: 50%;
+    margin: 0 auto;
+}
+
+
+input[type=email],
+input[type=text],
+input[type=number],
+input[type=date],
+input[type=password] {
+    box-sizing: border-box;
+    padding: 12px;
+    margin: 5px 0;
+    width: 100%;
+    border: 3px solid #ccc;
+}
+
+#login, #register {
+    margin: 60px auto 0 auto;
+}
+
+.normal-btn,
+#offers button,
+#login button,
+#register button,
+#button_already_account,
+#button_not_account {
+    background: #53b17d;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
+    transition: background-color 1s;
+    text-align: center;
+}
+
+.normal-btn:hover,
+#offers button:hover,
+#login button:hover,
+#register button:hover,
+#button_already_account:hover,
+#button_not_account:hover {
+    background-color: #3a8b61;
+    transition: background-color .3s;
+}
+
+#button_already_account,
+#button_not_account {
+    width: 50%;
+    box-sizing: border-box;
+    margin: 10px auto;
+}
+
+#remember_me {
+    margin-bottom: 1.2em;
+}
+
+.btn-submit {
+    margin-top: 25px;
+}
+
+.alert {
+    padding: 10px;
+    margin: 10px auto;
+    width: 40%;
+}
+
+.success {
+    background: #6ad381;
+    border: 2px solid #57bb6f;
+}
+
+.error {
+    background: #d36a6a;
+    border: 2px solid #c64a4a;
+}
