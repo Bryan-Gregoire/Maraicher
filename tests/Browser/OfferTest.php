@@ -125,7 +125,7 @@ class OfferTest extends DuskTestCase
                 ->type('price', 25)
                 ->type('address', 'rue royal 67 botanique')
                 ->press('Add an offer');
-            $browser->pause(2000);
+            $browser->pause(2000) ;
             $this->assertDatabaseHas("offers", [
                 'title' => 'test',
                 'quantity' => '75 kg',
