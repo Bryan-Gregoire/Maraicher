@@ -8,7 +8,6 @@
 
 @section('content')
     <table id="offers_list">
-
         <tr>
             <th>Name</th>
             <th>Quantity</th>
@@ -56,6 +55,5 @@
                 </td>
             </tr>
         @endforeach
-
     </table>
 @endsection()

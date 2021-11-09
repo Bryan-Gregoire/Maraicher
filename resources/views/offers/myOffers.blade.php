@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <div id="addOffer" class="normal-btn" style="width: 50%; margin: 0 auto; margin-top: 60px;">
+    <div id="addOffer" class="normal-btn addOfferButton">
         Add an offer
     </div>
     @if (Session::has('success'))
