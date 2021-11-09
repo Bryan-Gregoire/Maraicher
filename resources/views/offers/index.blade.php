@@ -30,7 +30,28 @@
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
-                <td>{{date_format(new DateTime($offer->expirationDate),'g:ia \o\n l jS F Y')}}</td>
+                <?php
+                $given_date = new DateTime($offer->expirationDate);
+
+                $now_midnight = new DateTime('today midnight');
+                $now_end = (new DateTime('today midnight'))->modify("+23 hours")->modify("+59 minutes");
+                $tomorrow_midnight = new DateTime('tomorrow midnight');
+                $tomorrow_end = (new DateTime('tomorrow midnight'))->modify("+23 hours")->modify("+59 minutes");
+                $after_tomorrow_midnight = (new DateTime('tomorrow midnight'))->modify("+1 day");
+                $after_tomorrow_end = (new DateTime('tomorrow midnight'))
+                    ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
+
+                if ($given_date >= $now_midnight && $given_date <= $now_end) {
+                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
+                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
+                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                } else {
+                    $formatted_date = date_format($given_date, 'g:ia \o\n l jS F Y');
+                }
+                ?>
+                <td>{{$formatted_date}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>
