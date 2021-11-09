@@ -98,14 +98,7 @@ class OfferTest extends DuskTestCase
             $offers = Offer::orderBy('expirationDate', 'desc')
                 ->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
             foreach ($offers as $offer) {
-                if ($offer->user->id != $admin->id) {
-                    for ($i = 0; $i <= $userOffers; $i++) {
-                        $browser
-                            //                            ->assertDontSeeIn("#tableID" . $i, "$offer->id")
-                            ->assertNotPresent("button.btn.btn-green")
-                            ->assertDontSee('Buy');
-                    }
-                } else {
+                if ($offer->user->id == $admin->id) {
                     for ($i = 0; $i <= $userOffers; $i++) {
                         $browser
                             ->assertSee("$offer->title")
@@ -132,7 +125,7 @@ class OfferTest extends DuskTestCase
                 ->type('price', 25)
                 ->type('address', 'rue royal 67 botanique')
                 ->press('Add an offer');
-            $browser->pause(5000);
+            $browser->pause(2000);
             $this->assertDatabaseHas("offers", [
                 'title' => 'test',
                 'quantity' => '75 kg',
