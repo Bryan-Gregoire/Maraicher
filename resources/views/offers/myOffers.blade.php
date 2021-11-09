@@ -38,16 +38,17 @@
         </tr>
         @foreach($offers as $count=> $offer)
             <tr>
-                <td>{{$offer->title}}</td>
-                <td>{{$offer->quantity}}</td>
-                <td>{{$offer->price}} €</td>
-                <td>{{$offer->expirationDate}}</td>
-                <td>{{$offer->address}}</td>
+                <td contenteditable="true">{{$offer->title}}</td>
+                <td contenteditable="true">{{$offer->quantity}}</td>
+                <td contenteditable="true">{{$offer->price}} €</td>
+                <td contenteditable="true">{{$offer->expirationDate}}</td>
+                <td contenteditable="true">{{$offer->address}}</td>
                 <td>
                     <form action="{{route("offers.destroy",$offer)}}" method="POST">
                         @CSRF
                         @method('DELETE')
                         <button class="btn btn-red">Delete</button>
+                        <button class="btn btn-orange">Modify</button>
                     </form>
                 </td>
             </tr>

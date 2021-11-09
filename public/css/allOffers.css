@@ -55,6 +55,11 @@
     border: 1px solid #b71b1b;
 }
 
+.btn-orange {
+    background: #FF8C00;
+    border: 1px solid #D2691E;
+}
+
 .btn-red:hover {
     background: #b71b1b;
 }
