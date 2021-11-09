@@ -22,7 +22,7 @@
         <input type="text" placeholder="Name" name="name" required>
         <input type="text" placeholder="Amount" name="amount" required>
         <input type="number" placeholder="Price" name="price" required>
-        <input type="date" name="timeleft" required id="myDate">
+        <input type="date" name="timeleft" required id="myDate" value="2022-08-14">
         <input type="text" placeholder="address" name="address" required>
         <button class="btn-submit">Add an offer</button>
     </form>
@@ -37,9 +37,9 @@
             <th>Offer address</th>
             <th>Action</th>
         </tr>
-        @foreach($offers as $offer)
+        @foreach($offers as $count=> $offer)
             <tr>
-                <td>{{$offer->id}}</td>
+                <td id="offerID{{$count}}">{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
