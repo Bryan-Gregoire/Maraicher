@@ -6,15 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Offer extends Model
+class Sale extends Model
 {
+    protected $fillable = ['offer_id','user_id'];
     use HasFactory;
 
-    protected $fillable = ['title', 'price', 'quantity', 'expirationDate', 'address', 'user_id'];
-
-    public function user(): BelongsTo
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-}
 
+    public function offer(): BelongsTo
+    {
+        return $this->belongsTo(Offer::class);
+    }
+
+
+}
