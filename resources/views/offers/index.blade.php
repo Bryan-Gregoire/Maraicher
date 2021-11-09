@@ -10,11 +10,10 @@
     <table id="offers_list">
 
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Time left</th>
+            <th>Expiration Date</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
@@ -22,11 +21,10 @@
 
         @foreach($offers as $offer)
             <tr>
-                <td>{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
-                <td>{{$offer->expirationDate}}</td>
+                <td>{{date_format(new DateTime($offer->expirationDate),'g:ia \o\n l jS F Y')}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>

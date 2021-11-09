@@ -86,7 +86,7 @@ class OfferTest extends DuskTestCase
                 ->assertSee('Name')
                 ->assertSee('Quantity')
                 ->assertSee('Price')
-                ->assertSee('Time left')
+                ->assertSee('Expiration Date')
                 ->assertSee('Offer address')
                 ->assertSee('User')
                 ->assertSee('Action')

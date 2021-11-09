@@ -29,17 +29,15 @@
 
     <table id="offers_list">
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Time left</th>
+            <th>Expiration Date</th>
             <th>Offer address</th>
             <th>Action</th>
         </tr>
         @foreach($offers as $count=> $offer)
             <tr>
-                <td id="offerID{{$count}}">{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
