@@ -124,20 +124,44 @@ class OfferTest extends DuskTestCase
 
     public function test_Add_Offer()
     {
-        $admin = User::find(1);
-        $this->browse(function (Browser $browser) use ($admin) {
+        $this->artisan("migrate:fresh --seed");
+        $this->browse(function (Browser $browser) {
+            $browser->refresh();
             $browser->click('#addOffer')->type('name', 'test')
                 ->type('amount', '75 kg')
-                ->type('price', 25.99)
+                ->type('price', 25)
                 ->type('address', 'rue royal 67 botanique')
                 ->press('Add an offer');
+            $browser->pause(5000);
+            $this->assertDatabaseHas("offers", [
+                'title' => 'test',
+                'quantity' => '75 kg',
+                'price' => 25,
+                'address' => 'rue royal 67 botanique',
+                'user_id' => 1
+            ]);
+            $browser->assertSee("New offer added !");
         });
-        $this->assertDatabaseHas("offers", [
-            'title' => 'test',
-            'quantity' => '75kg',
-            'price' => 25.99,
-            'address' => 'rue royal 67 botanique',
-            'user_id' => 1
-        ]);
+    }
+
+    public function test_delete_offer()
+    {
+        $this->artisan("migrate:fresh --seed");
+
+        $this->browse(function (Browser $browser) {
+            Offer::truncate();
+            $browser->click('#addOffer')
+                ->type('name', 'test')
+                ->type('amount', '75 kg')
+                ->type('price', 25)
+                ->type('address', 'rue royal 67 botanique')
+                ->press('Add an offer');
+            $browser->refresh();
+            $browser->press('Delete');
+            $browser->pause(1000);
+            $this->assertDatabaseMissing('offers', [
+                'name' => 'test'
+            ]);
+        });
     }
 }
