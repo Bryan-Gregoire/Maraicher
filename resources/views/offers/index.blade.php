@@ -14,7 +14,6 @@
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
     <table id="offers_list">
-
         <tr>
             <th>Name</th>
             <th>Quantity</th>
@@ -71,6 +70,5 @@
                 </td>
             </tr>
         @endforeach
-
     </table>
 @endsection()
