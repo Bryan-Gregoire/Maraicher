@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
 Route::resource('offers', OfferController::class)->middleware(['auth']);
 Route::resource('sales', SaleController::class)->middleware(['auth']);
 
@@ -25,7 +26,6 @@ require __DIR__ . '/auth.php';
 
 Route::get('/my', [OfferController::class, 'index_personal'])->middleware(['auth'])->name('offers.myOffers');
 Route::get('/mySales', [SaleController::class, 'index'])->middleware(['auth'])->name('sales.my');
-
 
 
 

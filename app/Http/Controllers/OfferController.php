@@ -96,15 +96,23 @@ class OfferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update the specified resource from storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @param \App\Models\Offer $offer
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Offer $offer)
+    public function update(Request $request, $id)
     {
-        //
+        $offer = Offer::find($id);
+        $offer->update([
+            "title" => $request->all()['name'],
+            "price" => $request->all()['price'],
+            "quantity" => $request->all()['amount'],
+            "expirationDate" => $request->all()['timeleft'],
+            "address" => $request->all()['address'],
+        ]);
+
+        return redirect(route('offers.myOffers'))->with('Success', "The offer has been update.");
     }
 
     /**
