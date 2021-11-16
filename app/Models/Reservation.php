@@ -8,20 +8,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Offer extends Model
+class Reservation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'price', 'quantity', 'expirationDate', 'address', 'user_id'];
+    protected $fillable=['offer_id'];
 
-    public function user(): BelongsTo
+    public function offer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Offer::class);
     }
 
-    public function reservations(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->belongsToMany(User::class,UserReservation::class);
     }
 }
-

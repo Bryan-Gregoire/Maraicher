@@ -13,6 +13,7 @@
     @if (Session::has('error'))
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
+
     <table id="offers_list">
         <tr>
             <th>Name</th>
@@ -25,6 +26,11 @@
         </tr>
 
         @foreach($offers as $offer)
+            @php
+                $offerId = $offer->id;
+                $hasReservation = \App\Models\Reservation::where('offer_id',$offerId)->exists() &&
+                \App\Models\Reservation::where('offer_id',$offerId)->first()->users->contains(auth()->id())
+            @endphp
             <tr>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
@@ -55,16 +61,33 @@
                 <td>{{$offer->user->name}}</td>
                 <td>
                     @if($offer->user->id == auth()->id())
-                        <span><strong>MINE !</strong></span>
-                    @elseif(\App\Models\Sale::where('offer_id',$offer->id)->first())
+                        @php
+                            $count
+=  \App\Models\Reservation::where('offer_id',$offerId)->exists()
+? \App\Models\Reservation::where('offer_id',$offerId)->first()->users->count()
+: 0;
+                        @endphp
+                        @if(!App\Models\Reservation::where('offer_id',$offerId)->exists() && !\App\Models\Sale::where('offer_id',$offer->id)->exists())
+                            <span><strong>{{$count}} bids</strong></span>
+                        @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists() && !App\Models\Reservation::where('offer_id',$offerId)->exists())
+                            <span><strong>SOLD</strong></span>
+                        @else
+                            <a href="{{ route('reservations.show',\App\Models\Reservation::where('offer_id',$offerId)->first()) }}">
+                                <span><strong>{{$count}} bids</strong></span>
+                            </a>
+                        @endif
+
+                    @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists())
                         <span><strong>SOLD</strong></span>
+                    @elseif ($hasReservation )
+                        <span><strong>You have reserved</strong></span>
 
                     @else
-                        <form action="{{route('sales.store')}}" method="POST">
+                        <form action="{{route('reservations.store')}}" method="POST">
                             @CSRF
                             <input type="hidden" name="user_id" value="{{auth()->id()}}">
                             <input type="hidden" name="offer_id" value="{{$offer->id}}">
-                            <button class="btn btn-green">Buy</button>
+                            <button class="btn btn-green">Book</button>
                         </form>
                     @endif
                 </td>

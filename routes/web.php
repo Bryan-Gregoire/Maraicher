@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\SaleController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,9 @@ Route::get('/', function () {
 });
 Route::resource('offers', OfferController::class)->middleware(['auth']);
 Route::resource('sales', SaleController::class)->middleware(['auth']);
-
+Route::resource('reservations', ReservationController::class)->middleware(['auth']);
+Route::post('/reservations/confirm', [ReservationController::class, 'selectUser'])
+    ->name('reservations.select')->middleware(['auth']);
 require __DIR__ . '/auth.php';
 
 Route::get('/my', [OfferController::class, 'index_personal'])->middleware(['auth'])->name('offers.myOffers');
