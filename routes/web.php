@@ -25,3 +25,4 @@ require __DIR__ . '/auth.php';
 
 Route::get('/my', [OfferController::class, 'index_personal'])->middleware(['auth'])->name('offers.myOffers');
 
+

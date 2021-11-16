@@ -101,10 +101,14 @@ class OfferController extends Controller
     {
         $offer = Offer::find($id);
         $offer->update([
-            $request->all()
+            "title" => $request->all()['name'],
+            "price" => $request->all()['price'],
+            "quantity" => $request->all()['amount'],
+            "expirationDate" => $request->all()['timeleft'],
+            "address" => $request->all()['address'],
         ]);
 
-        return redirect(route('offers.myOffers'))->with('Success', "The offer has been deleted.");
+        return redirect(route('offers.myOffers'))->with('Success', "The offer has been update.");
     }
 
     /**
