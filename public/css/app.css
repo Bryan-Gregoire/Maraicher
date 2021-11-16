@@ -154,6 +154,10 @@ input[type=password] {
         border: 1px solid #ccc;
     }
 
+    #offers_list tr {
+        border: 1px solid #ccc;
+    }
+
     #offers_list td {
         border: none;
         border-bottom: 1px solid #eee;
@@ -197,6 +201,9 @@ input[type=password] {
 
     #offers_list td:nth-of-type(7):before {
         content: "Action";
+    }
+    body{
+        font-size: 0.6em;
     }
 }
 

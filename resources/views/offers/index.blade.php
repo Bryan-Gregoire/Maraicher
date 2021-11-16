@@ -41,7 +41,7 @@
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
                     $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
                 } else {
-                    $formatted_date = date_format($given_date, 'g:ia \o\n l jS F Y');
+                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
                 }
                 ?>
                 <td>{{$formatted_date}}</td>
