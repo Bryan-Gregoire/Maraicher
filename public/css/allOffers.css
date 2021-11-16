@@ -10,6 +10,12 @@
     border-collapse: collapse;
 }
 
+#details {
+    margin: 60px auto;
+    width: 70%;
+    text-align: center;
+}
+
 #offers_list tr td, #offers_list tr th {
     padding: 1em;
 }

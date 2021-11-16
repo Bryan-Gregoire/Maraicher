@@ -6,7 +6,9 @@ use App\Models\Offer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class OfferController extends Controller
 {
@@ -46,7 +48,7 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|\Illuminate\Http\Response|Redirector
      */
     public function store(Request $request)
     {
@@ -76,7 +78,7 @@ class OfferController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Offer $offer
+     * @param Offer $offer
      * @return \Illuminate\Http\Response
      */
     public function show(Offer $offer)
@@ -87,7 +89,7 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Offer $offer
+     * @param Offer $offer
      * @return \Illuminate\Http\Response
      */
     public function edit(Offer $offer)
@@ -98,8 +100,9 @@ class OfferController extends Controller
     /**
      * update the specified resource from storage.
      *
-     * @param \App\Models\Offer $offer
-     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param \Illuminate\Http\Request $request
+     * @param Offer $offer
+     * @return Application|RedirectResponse|\Illuminate\Http\Response|Redirector
      */
     public function update(Request $request, $id)
     {
@@ -118,8 +121,8 @@ class OfferController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Offer $offer
-     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param Offer $offer
+     * @return Application|Redirector|RedirectResponse
      */
     public function destroy(Offer $offer)
     {
