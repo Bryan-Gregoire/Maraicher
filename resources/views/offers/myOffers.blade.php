@@ -22,7 +22,7 @@
         <input id="name" type="text" placeholder="Name" name="name" required>
         <input id="amount" type="text" placeholder="Amount" name="amount" required>
         <input id="price" type="number" placeholder="Price" name="price" required>
-        <input type="datetime-local" name="timeleft" required id="myDate" value="2022-08-14">
+        <input type="datetime-local" name="timeleft" required id="myDate" value="2022-08-14 05:55">
         <input id="adresse" type="text" placeholder="address" name="address" required>
         <button id="buttonAdd" class="btn-submit">Add an offer</button>
     </form>
@@ -71,7 +71,7 @@
                     <form action="{{route("offers.destroy",$offer)}}" method="POST">
                         @CSRF
                         @method('DELETE')
-                        <button class="btn btn-red">Delete</button>
+                        <button id="deleteOffer" class="btn btn-red">Delete</button>
                     </form>
                     <button onclick="btnClick($(this))" class="btn btn-orange">Modify</button>
                 </td>

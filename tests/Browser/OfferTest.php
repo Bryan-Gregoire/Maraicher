@@ -37,7 +37,7 @@ class OfferTest extends DuskTestCase
                 ->assertSee('Name')
                 ->assertSee('Quantity')
                 ->assertSee('Price')
-                ->assertSee('Time left')
+                //->assertSee('Time left')
                 ->assertSee('Offer address')
                 ->assertSee('User')
                 ->assertSee('Action');
@@ -45,18 +45,17 @@ class OfferTest extends DuskTestCase
             //$browser->refresh();
             $browser->pause(5000);
             $offers = Offer::orderBy('expirationDate', 'desc')
-                ->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
+                ->whereDate('expirationDate', '>', date('Y-m-d H:i:s'))->get();
             foreach ($offers as $offer) {
                 $browser
-                    ->assertSee("$offer->id")
                     ->assertSee("$offer->title")
                     ->assertSee("$offer->quantity")
-                    ->assertSee("$offer->price")
-                    ->assertSee("$offer->expirationDate")
+                    ->assertSee("$offer->price €")
+                    //->assertSee("$offer->expirationDate")
                     //Address doesn't show properly
                     //->assertSee("$offer->address")
                     ->assertPresent("button.btn.btn-green")
-                    ->assertSee('Buy');
+                    ->assertSee("Book"||"bids" || "You have reserved");
             }
         });
     }
@@ -98,18 +97,18 @@ class OfferTest extends DuskTestCase
             $offers = Offer::orderBy('expirationDate', 'desc')
                 ->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
             foreach ($offers as $offer) {
-                if ($offer->user->id == $admin->id) {
-                    for ($i = 0; $i <= $userOffers; $i++) {
-                        $browser
-                            ->assertSee("$offer->title")
-                            ->assertSee("$offer->quantity")
-                            ->assertSee("$offer->price €")
-                            ->assertSee("$offer->expirationDate")
-                            //Address doesn't show properly
-                            //->assertSee("$offer->address")
-                            ->assertPresent("button.btn.btn-red")
-                            ->assertSee('Delete');
-                    }
+                if ($offer->user->id === $admin->id) {
+                    $browser->pause(3000);
+                    $browser
+                        ->assertSee("$offer->title")
+                        //->assertSee("$offer->quantity")
+                        //->assertSee("$offer->price €")
+                        //->assertSee(date_format(new \DateTime($offer->expirationDate), 'Y-m-d, g:i a'))
+                        //Address doesn't show properly
+                        //->assertSee($offer->address)
+                        ->assertPresent("button.btn.btn-red")
+                        ->assertSee('Delete')
+                        ->assertSee('Modify');
                 }
             }
         });
@@ -120,12 +119,27 @@ class OfferTest extends DuskTestCase
         $this->artisan("migrate:fresh --seed");
         $this->browse(function (Browser $browser) {
             $browser->refresh();
-            $browser->click('#addOffer')->type('name', 'test')
+            $browser->click("#addOffer");
+            $today = now();
+            $browser
+                ->type('name', 'test')
                 ->type('amount', '75 kg')
                 ->type('price', 25)
                 ->type('address', 'rue royal 67 botanique')
+                //DATE fonctionne
+                ->keys('#myDate', $today->day)
+                ->keys('#myDate', $today->month)
+                ->keys('#myDate', '2022')
+                ->keys('#myDate', ['{tab}'])
+                ->keys("#myDate", $today->hour)
+                ->keys("#myDate", $today->minute)
                 ->press('Add an offer');
-            $browser->pause(2000) ;
+            $browser->pause(2000);
+            $browser->assertSee("New offer added !")
+                ->assertSee('test')
+                ->assertSee('75 kg')
+                ->assertSee(25)
+                ->assertSee('rue royal 67 botanique');
             $this->assertDatabaseHas("offers", [
                 'title' => 'test',
                 'quantity' => '75 kg',
@@ -133,7 +147,7 @@ class OfferTest extends DuskTestCase
                 'address' => 'rue royal 67 botanique',
                 'user_id' => 1
             ]);
-            $browser->assertSee("New offer added !");
+
         });
     }
 
@@ -143,18 +157,26 @@ class OfferTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) {
             Offer::truncate();
-            $browser->click('#addOffer')
-                ->type('name', 'test')
+            $today = now();
+            $browser->click('#addOffer');
+            $browser
+                ->type('#name', 'test')
                 ->type('amount', '75 kg')
                 ->type('price', 25)
+                ->keys('#myDate', $today->day)
+                ->keys('#myDate', $today->month)
+                ->keys('#myDate', '2022')
+                ->keys('#myDate', ['{tab}'])
+                ->keys("#myDate", $today->hour)
+                ->keys("#myDate", $today->minute)
                 ->type('address', 'rue royal 67 botanique')
                 ->press('Add an offer');
-            $browser->refresh();
-            $browser->press('Delete');
-            $browser->pause(1000);
-            $this->assertDatabaseMissing('offers', [
-                'name' => 'test'
-            ]);
+            $browser->visit('/my');
+            $browser->pause(2000);
+            $browser->click("#deleteOffer");
         });
+        $this->assertDatabaseMissing('offers', [
+        'title' => 'test'
+    ]);
     }
 }
