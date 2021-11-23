@@ -6,7 +6,9 @@ use App\Models\Offer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 class OfferController extends Controller
 {
@@ -17,15 +19,19 @@ class OfferController extends Controller
      */
     public function index()
     {   //ORDER BY => choisir le critère d'ordre
-        $offers = Offer::orderBy('expirationDate', 'desc')->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
+        $offers = Offer::orderBy('expirationDate', 'desc')->where('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
         return view('offers.index')->with(['offers' => $offers]);
     }
 
     public function index_personal()
     {
         $user = auth()->user();
-        $offers = Offer::where('user_id', $user->id)->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->orderBy('expirationDate', 'desc')->get();
-        return view('offers.myOffers')->with(['user' => auth()->id(), 'offers' => $offers]);
+        $offers = Offer::where('user_id', $user->id)
+            ->where('expirationDate', '>=', date('Y-m-d H:i:s'))
+            ->orderBy('expirationDate', 'desc')
+            ->get();
+        return view('offers.myOffers')
+            ->with(['user' => auth()->id(), 'offers' => $offers]);
     }
 
     /**
@@ -42,7 +48,7 @@ class OfferController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @return Application|RedirectResponse|\Illuminate\Http\Response|Redirector
      */
     public function store(Request $request)
     {
@@ -72,7 +78,7 @@ class OfferController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Offer $offer
+     * @param Offer $offer
      * @return \Illuminate\Http\Response
      */
     public function show(Offer $offer)
@@ -83,7 +89,7 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Offer $offer
+     * @param Offer $offer
      * @return \Illuminate\Http\Response
      */
     public function edit(Offer $offer)
@@ -92,22 +98,31 @@ class OfferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * update the specified resource from storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Offer $offer
-     * @return \Illuminate\Http\Response
+     * @param Offer $offer
+     * @return Application|RedirectResponse|\Illuminate\Http\Response|Redirector
      */
-    public function update(Request $request, Offer $offer)
+    public function update(Request $request, $id)
     {
-        //
+        $offer = Offer::find($id);
+        $offer->update([
+            "title" => $request->all()['name'],
+            "price" => $request->all()['price'],
+            "quantity" => $request->all()['amount'],
+            "expirationDate" => $request->all()['timeleft'],
+            "address" => $request->all()['address'],
+        ]);
+
+        return redirect(route('offers.myOffers'))->with('Success', "The offer has been update.");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Offer $offer
-     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
+     * @param Offer $offer
+     * @return Application|Redirector|RedirectResponse
      */
     public function destroy(Offer $offer)
     {

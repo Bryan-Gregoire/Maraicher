@@ -7,36 +7,91 @@
 @endsection
 
 @section('content')
-    <table id="offers_list">
+    @if (Session::has('success'))
+        <div class="alert success">{{Session::get('success')}}</div>
+    @endif
+    @if (Session::has('error'))
+        <div class="alert error">{{Session::get('error')}}</div>
+    @endif
 
+    <table id="offers_list">
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Time left</th>
+            <th>Expiration Date</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
         </tr>
 
         @foreach($offers as $offer)
+            @php
+                $offerId = $offer->id;
+                $hasReservation = \App\Models\Reservation::where('offer_id',$offerId)->exists() &&
+                \App\Models\Reservation::where('offer_id',$offerId)->first()->users->contains(auth()->id())
+            @endphp
             <tr>
-                <td>{{$offer->id}}</td>
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
-                <td>{{$offer->expirationDate}}</td>
+                <?php
+                $given_date = new DateTime($offer->expirationDate);
+
+                $now_midnight = new DateTime('today midnight');
+                $now_end = (new DateTime('today midnight'))->modify("+23 hours")->modify("+59 minutes");
+                $tomorrow_midnight = new DateTime('tomorrow midnight');
+                $tomorrow_end = (new DateTime('tomorrow midnight'))->modify("+23 hours")->modify("+59 minutes");
+                $after_tomorrow_midnight = (new DateTime('tomorrow midnight'))->modify("+1 day");
+                $after_tomorrow_end = (new DateTime('tomorrow midnight'))
+                    ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
+
+                if ($given_date >= $now_midnight && $given_date <= $now_end) {
+                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
+                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
+                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                } else {
+                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                }
+                ?>
+                <td>{{$formatted_date}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>
-                    <form action="/buy/{{$offer->id}}" method="POST">
-                        @CSRF
-                        <button class="btn btn-green">Buy</button>
-                    </form>
+                    @if($offer->user->id == auth()->id())
+                        @php
+                            $count
+=  \App\Models\Reservation::where('offer_id',$offerId)->exists()
+? \App\Models\Reservation::where('offer_id',$offerId)->first()->users->count()
+: 0;
+                        @endphp
+                        @if(!App\Models\Reservation::where('offer_id',$offerId)->exists() && !\App\Models\Sale::where('offer_id',$offer->id)->exists())
+                            <span><strong>{{$count}} bids</strong></span>
+                        @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists() && !App\Models\Reservation::where('offer_id',$offerId)->exists())
+                            <span><strong>SOLD</strong></span>
+                        @else
+                            <a href="{{ route('reservations.show',\App\Models\Reservation::where('offer_id',$offerId)->first()) }}">
+                                <span><strong>{{$count}} bids</strong></span>
+                            </a>
+                        @endif
+
+                    @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists())
+                        <span><strong>SOLD</strong></span>
+                    @elseif ($hasReservation )
+                        <span><strong>You have reserved</strong></span>
+
+                    @else
+                        <form action="{{route('reservations.store')}}" method="POST">
+                            @CSRF
+                            <input type="hidden" name="user_id" value="{{auth()->id()}}">
+                            <input type="hidden" name="offer_id" value="{{$offer->id}}">
+                            <button class="btn btn-green">Book</button>
+                        </form>
+                    @endif
                 </td>
             </tr>
         @endforeach
-
     </table>
 @endsection()

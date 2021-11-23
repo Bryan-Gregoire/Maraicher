@@ -5,7 +5,6 @@ body {
 }
 
 nav {
-    width: 100%;
     background-color: #4ca171;
     padding: 15px;
     text-align: center;
@@ -13,6 +12,11 @@ nav {
 
 nav form {
     display: inline;
+}
+
+.addOfferButton {
+    width: 50% !important;
+    margin: 60px auto 0;
 }
 
 nav a {
@@ -54,7 +58,7 @@ form {
 input[type=email],
 input[type=text],
 input[type=number],
-input[type=date],
+input[type=datetime-local],
 input[type=password] {
     box-sizing: border-box;
     padding: 12px;
@@ -123,4 +127,94 @@ input[type=password] {
 .error {
     background: #d36a6a;
     border: 2px solid #c64a4a;
+}
+
+
+/* ------------------------ */
+/* --- RESPONSIVE
+/* ------------------------ */
+@media only screen and (max-width: 1064px) {
+    input {
+        display: block;
+        margin: .5em auto;
+        width: 80%;
+    }
+
+    #offers_list table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    #offers_list thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #offers_list tr {
+        border: 1px solid #ccc;
+    }
+
+    #offers_list tr {
+        border: 1px solid #ccc;
+    }
+
+    #offers_list td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 10%;
+        text-align: right;
+    }
+
+    #offers_list td:before {
+        position: absolute;
+        top: 18px;
+        left: 6px;
+        width: 3%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    #offers_list td:nth-of-type(1):before {
+        content: "Name";
+    }
+
+    #offers_list td:nth-of-type(2):before {
+        content: "Quantity";
+    }
+
+    #offers_list td:nth-of-type(3):before {
+        content: "Price";
+    }
+
+    #offers_list td:nth-of-type(4):before {
+        content: "Expiration Date";
+    }
+
+    #offers_list td:nth-of-type(5):before {
+        content: "Offer address";
+    }
+
+    #offers_list td:nth-of-type(6):before {
+        content: "User";
+    }
+
+    #offers_list td:nth-of-type(7):before {
+        content: "Action";
+    }
+    body{
+        font-size: 0.6em;
+    }
+}
+
+@media only screen and (max-width: 526px) {
+    nav a {
+        display: block;
+        margin-left: 0;
+    }
+
+    .addOfferButton, #offers_list {
+        width: 90% !important;
+        margin: 60px auto;
+    }
 }
