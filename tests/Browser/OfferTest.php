@@ -32,7 +32,7 @@ class OfferTest extends DuskTestCase
             }
             //Seeing the listing
             $browser->assertSee('OFFERS')
-                ->assertSee('ACCOUNT')
+                ->assertSee('MY OFFERS')
                 ->assertSee('LOG OUT')
                 ->assertSee('Name')
                 ->assertSee('Quantity')
@@ -81,7 +81,7 @@ class OfferTest extends DuskTestCase
             }
             //Seeing the listing
             $browser->assertSee('OFFERS')
-                ->assertSee('ACCOUNT')
+                ->assertSee('MY OFFERS')
                 ->assertSee('LOG OUT')
                 ->assertSee('Name')
                 ->assertSee('Quantity')

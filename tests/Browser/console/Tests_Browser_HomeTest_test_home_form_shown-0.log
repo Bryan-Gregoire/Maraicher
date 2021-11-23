@@ -1,20 +1,14 @@
 [
     {
-        "level": "WARNING",
-        "message": "chrome-error:\/\/chromewebdata\/ 7287:10 \"crbug\/1173575, non-JS module files deprecated.\"",
-        "source": "console-api",
-        "timestamp": 1635238197199
+        "level": "SEVERE",
+        "message": "https:\/\/code.jquery.com\/jquery-3.6.0.min.js - Failed to load resource: net::ERR_NETWORK_CHANGED",
+        "source": "network",
+        "timestamp": 1637655873506
     },
     {
-        "level": "WARNING",
-        "message": "chrome-error:\/\/chromewebdata\/ 7287:10 \"crbug\/1173575, non-JS module files deprecated.\"",
-        "source": "console-api",
-        "timestamp": 1635238197385
-    },
-    {
-        "level": "WARNING",
-        "message": "chrome-error:\/\/chromewebdata\/ 7287:10 \"crbug\/1173575, non-JS module files deprecated.\"",
-        "source": "console-api",
-        "timestamp": 1635238199325
+        "level": "SEVERE",
+        "message": "http:\/\/127.0.0.1:8000\/ 48:8 Uncaught ReferenceError: $ is not defined",
+        "source": "javascript",
+        "timestamp": 1637655873506
     }
 ]
