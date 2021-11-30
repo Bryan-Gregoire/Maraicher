@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Sale;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SaleFactory extends Factory
@@ -12,7 +12,7 @@ class SaleFactory extends Factory
      *
      * @var string
      */
-    protected $model = Sale::class;
+    protected $model = Purchase::class;
 
     /**
      * Define the model's default state.

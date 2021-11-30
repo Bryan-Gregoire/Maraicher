@@ -49,9 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
-    public function sales(): HasMany
+    public function purchases(): HasMany
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Purchase::class);
     }
 
     public function reservations(): BelongsToMany

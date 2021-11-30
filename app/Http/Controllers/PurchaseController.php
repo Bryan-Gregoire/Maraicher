@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Sale;
+use App\Models\Offer;
+use App\Models\Purchase;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 
-class SaleController extends Controller
+class PurchaseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +21,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        $sales = Sale::where('user_id', auth()->id())->get();
-        return view('sales.index')->with(['sales' => $sales]);
+        $purchases = Purchase::where('user_id', auth()->id())->get();
+        return view('purchases.index')->with(['purchases' => $purchases]);
     }
 
     /**
@@ -42,9 +43,15 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        Sale::create([
+        $offer = Offer::find($request->offer_id);
+        Purchase::create([
             'user_id' => $request->user_id,
-            'offer_id' => $request->offer_id,
+            'offer_title' => $offer->title,
+            'offer_price' => $offer->price,
+            'offer_quantity' => $offer->quantity,
+            'offer_address' => $offer->address,
+            'offer_vendor' => $offer->user->name,
+            'offer_id' => $offer->id
         ]);
         return redirect(route('offers.index'))->with('success', 'You have bought this order ! ');
 
@@ -53,10 +60,10 @@ class SaleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Sale $sale
+     * @param Purchase $sale
      * @return Response
      */
-    public function show(Sale $sale)
+    public function show(Purchase $sale)
     {
         //
     }
@@ -64,10 +71,10 @@ class SaleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Sale $sale
+     * @param Purchase $sale
      * @return Response
      */
-    public function edit(Sale $sale)
+    public function edit(Purchase $sale)
     {
         //
     }
@@ -76,10 +83,10 @@ class SaleController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Sale $sale
+     * @param Purchase $sale
      * @return Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request, Purchase $sale)
     {
         //
     }
@@ -87,13 +94,12 @@ class SaleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Sale $sale
+     * @param Purchase $purchase
      * @return Application|Redirector|RedirectResponse
      */
-    public function destroy(Sale $sale)
+    public function destroy(Purchase $purchase)
     {
-        $sale->offer()->delete();
-        $sale->delete();
-        return redirect(route('sales.my'))->with('success', 'You have deleted this sale from your history ! ');
+        $purchase->delete();
+        return redirect(route('purchases.my'))->with('success', 'You have deleted this sale from your history ! ');
     }
 }

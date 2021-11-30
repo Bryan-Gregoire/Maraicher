@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Offer;
 use App\Models\Reservation;
-use App\Models\Sale;
+use App\Models\Purchase;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -108,12 +108,19 @@ class ReservationController extends Controller
     public function selectUser(Request $request)
     {
         $offerId = $request->offerId;
+        $offer = Offer::find($offerId);
         $chosenUser = $request->chosenCustomer;
         $reservation = Reservation::where('offer_id', $offerId)->first()->delete();
-        $newSale = Sale::create([
-            'offer_id' => $offerId,
-            'user_id' => $chosenUser
-        ]);
+        $newSale = Purchase::create(
+            [
+                'user_id' => $chosenUser,
+                'offer_title' => $offer->title,
+                'offer_price' => $offer->price,
+                'offer_quantity' => $offer->quantity,
+                'offer_address' => $offer->address,
+                'offer_vendor' => $offer->user->name,
+                'offer_id' => $offer->id,
+            ]);
         $name = User::find($chosenUser)->name;
         $offers = Offer::orderBy('expirationDate', 'desc')->where('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
         return view('offers.index')->with('success', "Sold to $name")->with('offers', $offers);
