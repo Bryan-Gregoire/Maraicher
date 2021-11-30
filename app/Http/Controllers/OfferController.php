@@ -129,4 +129,11 @@ class OfferController extends Controller
         $offer->delete();
         return redirect(route('offers.myOffers'))->with('Success', "The offer has been deleted.");
     }
+
+    public function search(Request $request){
+        $search = Offer::where('title', 'like', '%' . $request['search_bar'] . '%')
+            ->orderBy('expirationDate', 'desc')->where('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
+        return view('offers.index')->with(['offers' => $search]);
+
+    }
 }

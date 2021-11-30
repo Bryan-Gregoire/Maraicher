@@ -14,6 +14,13 @@
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
 
+    <form id="search" method="POST" action="{{route('search_bar')}}">
+        @CSRF
+        <div class="inptBar">
+            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar">
+        </div>
+        <button id="buttonSearch" class="btn btn-green">Rechercher</button>
+    </form>
     <table id="offers_list">
         <tr>
             <th>Name</th>
