@@ -14,20 +14,18 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\ClearExpiredOffersFromDatabase',
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param \Illuminate\Console\Scheduling\Schedule $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(
-            Offer::where('expirationDate', '<', today())->delete()
-        )->everyTwoMinutes();
+        $schedule->command('db:clearExpiredOffers')->everyMinute();
     }
 
     /**
