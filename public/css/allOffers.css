@@ -45,6 +45,25 @@
 .btn-green {
     background: #06cb06;
     border: 1px solid #08b308;
+}
+
+
+.inptBar {
+    display:inline-block;
+    position: relative;
+    margin-top: 15px;
+}
+.inptBar:before {
+    font-family: 'FontAwesome';
+    content: '\f002';
+    position: absolute;
+    top:10px;
+    left: -35px;
+    font-size: 2em;
+}
+#search
+{
+    display: grid;
 
 }
 
