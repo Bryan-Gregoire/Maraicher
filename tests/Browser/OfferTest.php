@@ -55,7 +55,7 @@ class OfferTest extends DuskTestCase
                     //Address doesn't show properly
                     //->assertSee("$offer->address")
                     ->assertPresent("button.btn.btn-green")
-                    ->assertSee("Book"||"bids" || "You have reserved");
+                    ->assertSee("Book" || "bids" || "You have reserved");
             }
         });
     }
@@ -176,7 +176,53 @@ class OfferTest extends DuskTestCase
             $browser->click("#deleteOffer");
         });
         $this->assertDatabaseMissing('offers', [
-        'title' => 'test'
-    ]);
+            'title' => 'test'
+        ]);
     }
+
+    public function test_Modify_DateOffer()
+    {
+        $this->artisan("migrate:fresh --seed");
+        //$tomorrow = new \DateTime('tomorrow');
+        $today = now();
+        $tomorrow = now()->addDay();
+
+        $this->browse(function (Browser $browser) use ($tomorrow, $today) {
+            Offer::truncate();
+            //$today = now();
+            //$tomorrow = now()->addDay();
+            $browser->visit('/')
+                ->type('email', "admin@admin.com")
+                ->type("password", "adminpassword")
+                ->press("Login")->visit('/my')->click('#addOffer')
+                ->type('#name', 'test')
+                ->type('amount', '75 kg')
+                ->type('price', 25)
+                ->keys('#myDate', $today->day)
+                ->keys('#myDate', $today->month)
+                ->keys('#myDate', '2022')
+                ->keys('#myDate', ['{tab}'])
+                ->keys("#myDate", $today->hour)
+                ->keys("#myDate", $today->minute)
+                ->type('address', 'rue royal 67 botanique')
+                ->press('Add an offer');
+            $browser->visit('/my');
+            $browser->pause(2000);
+            $browser->press("Modify")
+                ->type('#name', 'test')
+                ->type('amount', '75 kg')
+                ->type('price', 25)
+                ->keys('#myDate', $tomorrow->day)
+                ->keys('#myDate', $tomorrow->month)
+                ->keys('#myDate', '2022')
+                ->keys('#myDate', ['{tab}'])
+                ->keys("#myDate", $tomorrow->hour)
+                ->keys("#myDate", $tomorrow->minute)
+                ->press("Update offer");
+        });
+
+        $this->assertNotSame($today, $tomorrow);
+
+    }
+
 }
