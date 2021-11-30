@@ -17,7 +17,7 @@
     <form id="search" method="POST" action="{{route('search_bar')}}">
         @CSRF
         <div class="inptBar">
-            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar">
+            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar" value="{{ isset($oldValue) ? $oldValue : ""}}">
         </div>
         <button id="buttonSearch" class="btn btn-green">Rechercher</button>
     </form>
