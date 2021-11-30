@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('db:clearExpiredOffers')->everyMinute();
+        $schedule->command('db:clearExpiredOffers')->daily();
     }
 
     /**
