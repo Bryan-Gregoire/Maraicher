@@ -60,10 +60,10 @@ class PurchaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Purchase $sale
+     * @param Purchase $purchase
      * @return Response
      */
-    public function show(Purchase $sale)
+    public function show(Purchase $purchase)
     {
         //
     }
@@ -71,10 +71,10 @@ class PurchaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Purchase $sale
+     * @param Purchase $purchase
      * @return Response
      */
-    public function edit(Purchase $sale)
+    public function edit(Purchase $purchase)
     {
         //
     }
@@ -83,10 +83,10 @@ class PurchaseController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param Purchase $sale
+     * @param Purchase $purchase
      * @return Response
      */
-    public function update(Request $request, Purchase $sale)
+    public function update(Request $request, Purchase $purchase)
     {
         //
     }
@@ -100,6 +100,6 @@ class PurchaseController extends Controller
     public function destroy(Purchase $purchase)
     {
         $purchase->delete();
-        return redirect(route('purchases.my'))->with('success', 'You have deleted this sale from your history ! ');
+        return redirect(route('purchases.my'))->with('success', 'You have deleted this purchase from your history ! ');
     }
 }

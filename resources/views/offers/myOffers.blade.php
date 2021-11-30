@@ -40,7 +40,7 @@
             <tr data-idOffre="{{$offer->id}}" data-title="{{$offer->title}}" data-quantity="{{$offer->quantity}}"
                 data-price="{{$offer->price}}" data-expDate="{{$offer->expirationDate}}"
                 data-address="{{$offer->address}}">
-                <td >{{$offer->title}}</td>
+                <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
 
@@ -68,12 +68,17 @@
                 <td>{{$formatted_date}}</td>
                 <td>{{$offer->address}}</td>
                 <td id="buttons">
-                    <form action="{{route("offers.destroy",$offer)}}" method="POST">
-                        @CSRF
-                        @method('DELETE')
-                        <button id="deleteOffer" class="btn btn-red">Delete</button>
-                    </form>
-                    <button onclick="btnClick($(this))" class="btn btn-orange">Modify</button>
+                    @if(\App\Models\Purchase::where('offer_id',$offer->id)->exists())
+                        <span><strong>SOLD</strong></span>
+                    @else
+                        <form action="{{route("offers.destroy",$offer)}}" method="POST">
+                            @CSRF
+                            @method('DELETE')
+                            <button id="deleteOffer" class="btn btn-red">Delete</button>
+                        </form>
+                        <button onclick="btnClick($(this))" class="btn btn-orange">Modify</button>
+                    @endif
+
                 </td>
             </tr>
         @endforeach
@@ -96,19 +101,19 @@
 
     <script>
         function btnClick(btn) {
-                $("#offers").show(200)
-                $("#addOffer").hide()
-                $("#buttonAdd").text("Update offer")
-                let tr = (btn.parent().parent())
+            $("#offers").show(200)
+            $("#addOffer").hide()
+            $("#buttonAdd").text("Update offer")
+            let tr = (btn.parent().parent())
 
-                $("#name").val(tr.attr("data-title"))
-                $("#amount").val(tr.attr("data-quantity"))
-                $("#price").val(tr.attr("data-price"))
-                $("#myDate").val(tr.attr("data-expDate").slice(0, -3).replace(" ", "T"))
-                $("#adresse").val(tr.attr("data-address"))
-                $("#offers").attr("action", "/offers/" +tr.attr("data-idOffre"))
-                $("#offers").append('<input type="hidden" name=id" value="' + tr.attr("data-idOffre") + '">')
-                $("#offers").append('<input type="hidden" name="_method" value="PUT">')
+            $("#name").val(tr.attr("data-title"))
+            $("#amount").val(tr.attr("data-quantity"))
+            $("#price").val(tr.attr("data-price"))
+            $("#myDate").val(tr.attr("data-expDate").slice(0, -3).replace(" ", "T"))
+            $("#adresse").val(tr.attr("data-address"))
+            $("#offers").attr("action", "/offers/" + tr.attr("data-idOffre"))
+            $("#offers").append('<input type="hidden" name=id" value="' + tr.attr("data-idOffre") + '">')
+            $("#offers").append('<input type="hidden" name="_method" value="PUT">')
         }
     </script>
 @endsection

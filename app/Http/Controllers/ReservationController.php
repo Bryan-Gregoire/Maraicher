@@ -111,7 +111,7 @@ class ReservationController extends Controller
         $offer = Offer::find($offerId);
         $chosenUser = $request->chosenCustomer;
         $reservation = Reservation::where('offer_id', $offerId)->first()->delete();
-        $newSale = Purchase::create(
+        $newPurchase = Purchase::create(
             [
                 'user_id' => $chosenUser,
                 'offer_title' => $offer->title,

@@ -3,7 +3,7 @@
 @section('title_header', 'Listing your past purchases')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/allSales.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/allPurchases.css') }}"/>
 @endsection
 
 @section('content')
@@ -13,12 +13,12 @@
     @if (Session::has('error'))
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
-    <table id="sales_list">
+    <table id="purchases_list">
         <tr>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Date of sale</th>
+            <th>Date of purchase</th>
             <th>Seller</th>
             <th>Address of items</th>
             <th>Action</th>
