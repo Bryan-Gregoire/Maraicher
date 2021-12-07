@@ -26,11 +26,13 @@ Route::resource('reservations', ReservationController::class)->middleware(['auth
 Route::post('/reservations/confirm', [ReservationController::class, 'selectUser'])
     ->name('reservations.select')->middleware(['auth']);
 require __DIR__ . '/auth.php';
-
 Route::get('/my', [OfferController::class, 'index_personal'])->middleware(['auth'])->name('offers.myOffers');
 Route::get('/myPurchases', [PurchaseController::class, 'index'])->middleware(['auth'])->name('purchases.my');
 Route::get('/mySales', [SaleController::class, 'index'])->middleware(['auth'])->name('sales.my');
 Route::post('/search', [OfferController::class, 'search'])->middleware(['auth'])->name('search_bar');
+Route::get('/myAdresses', [\App\Http\Controllers\AddressController::class, 'show'])->middleware(['auth']);
+
+
 
 
 

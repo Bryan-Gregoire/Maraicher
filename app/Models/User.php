@@ -58,4 +58,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Reservation::class, UserReservation::class);
     }
+
+    public function addresses(): BelongsToMany
+    {
+        return $this->belongsToMany(Address::class, UserAddress::class);
+    }
+
+
 }

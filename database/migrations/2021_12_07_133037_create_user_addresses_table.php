@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserReservationTable extends Migration
+class CreateUserAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUserReservationTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_reservations', function (Blueprint $table) {
+        Schema::create('user_addresses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('address_id');
             $table->foreignId('user_id');
-            $table->foreignId('reservation_id');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateUserReservationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_reservation');
+        Schema::dropIfExists('user_addresses');
     }
 }
