@@ -28,7 +28,6 @@
         <button id="buttonAdd" class="btn-submit">Add an offer</button>
     </form>
 
-
     <table id="offers_list">
         <tr>
             <th>Name</th>
