@@ -17,6 +17,7 @@ class CreateUserAddressesTable extends Migration
             $table->id();
             $table->foreignId('address_id');
             $table->foreignId('user_id');
+            $table->timestamps();
         });
     }
 
