@@ -42,7 +42,7 @@ class BuyerChosenNotification extends Notification
     {
         return (new MailMessage)
             ->line('Maraicher-ESI, offre acceptée')
-            ->action("Vérifier l'offre", url('/my'))
+            ->action("Vérifier l'offre", url('/myPurchases'))
             ->line("Merci d'avoir utilisé Maraicher - ESI");
     }
 
