@@ -121,13 +121,13 @@
     <script>
         let countries = [];
         $.get("/myAdresses", function (data) {
-            data.forEach(kakaBryan => {
-                countries.push(kakaBryan.address_string);
+            data.forEach(unitAdress => {
+                countries.push(unitAdress.address_string);
             })
         });
-        console.log(countries);
+        /*  @source code : https://www.w3schools.com/howto/howto_js_autocomplete.asp */
+
     </script>
-    /*  @source code : https://www.w3schools.com/howto/howto_js_autocomplete.asp */
     <script>
         function autocomplete(inp, arr) {
             /*the autocomplete function takes two arguments,
@@ -232,8 +232,9 @@
             });
         }
 
+        /*  @source code : https://www.w3schools.com/howto/howto_js_autocomplete.asp */
+
     </script>
-    /*  @source code : https://www.w3schools.com/howto/howto_js_autocomplete.asp */
     <script>
         autocomplete(document.getElementById("adresse"), countries);
     </script>
