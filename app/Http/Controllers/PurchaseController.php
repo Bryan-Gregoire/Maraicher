@@ -44,6 +44,7 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $offer = Offer::find($request->offer_id);
+        $offer->delete();
         Purchase::create([
             'user_id' => $request->user_id,
             'offer_title' => $offer->title,
@@ -99,6 +100,8 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
+        if (Offer::exists($purchase->offer_id))
+            Offer::find($purchase->offer_id)->delete();
         $purchase->delete();
         return redirect(route('purchases.my'))->with('success', 'You have deleted this purchase from your history ! ');
     }
