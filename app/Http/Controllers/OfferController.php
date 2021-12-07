@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Offer;
+use App\Models\User;
+use App\Models\UserAddress;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -72,6 +75,14 @@ class OfferController extends Controller
             'address' => $request['address'],
             'user_id' => auth()->id()
         ]);
+        $adress = Address::make([
+            'address_string' => $request['address'],
+        ]);
+        $adress->save();
+        $user = User::find(auth()->id());
+        $user->addresses()->attach($adress);
+        $user->save();
+
         return redirect(route('offers.myOffers'))->with('success', 'New offer added !');
     }
 
@@ -131,10 +142,11 @@ class OfferController extends Controller
     }
 
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $search = Offer::whereRaw('LOWER(title) LIKE ? ', ['%' . strtolower($request['search_bar']) . '%'])
             ->orderBy('expirationDate', 'desc')->where('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
-        return \view('offers.index')->with(['offers' => $search, ])->with(['oldValue'=> $request['search_bar']]);
+        return \view('offers.index')->with(['offers' => $search,])->with(['oldValue' => $request['search_bar']]);
     }
 
 }
