@@ -24,8 +24,6 @@
     </div>
 
     <div id="register">
-        <!-- <div class="alert error">Ceci est une erreur de register</div> -->
-
         <form action="{{route('register')}}" method="POST">
             @CSRF
             <input type="text" placeholder="Name" name="name" required>
