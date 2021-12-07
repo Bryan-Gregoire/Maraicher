@@ -10,5 +10,6 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = ['address_string'];
+    public $timestamps=false;
 
 }
