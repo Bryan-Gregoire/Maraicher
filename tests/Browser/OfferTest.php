@@ -98,7 +98,7 @@ class OfferTest extends DuskTestCase
                 ->whereDate('expirationDate', '>=', date('Y-m-d H:i:s'))->get();
             foreach ($offers as $offer) {
                 if ($offer->user->id === $admin->id) {
-                    $browser->pause(3000);
+                    //$browser->pause(3000);
                     $browser
                         ->assertSee("$offer->title")
                         //->assertSee("$offer->quantity")
@@ -134,7 +134,7 @@ class OfferTest extends DuskTestCase
                 ->keys("#myDate", $today->hour)
                 ->keys("#myDate", $today->minute)
                 ->press('Add an offer');
-            $browser->pause(2000);
+            //$browser->pause(2000);
             $browser->assertSee("New offer added !")
                 ->assertSee('test')
                 ->assertSee('75 kg')
@@ -192,10 +192,11 @@ class OfferTest extends DuskTestCase
             //$today = now();
             //$tomorrow = now()->addDay();
             $browser->visit('/')
+                ->click('#logOut')
                 ->type('email', "admin@admin.com")
                 ->type("password", "adminpassword")
                 ->press("Login")->visit('/my')->click('#addOffer')
-                ->type('#name', 'test')
+                ->type('name', 'test')
                 ->type('amount', '75 kg')
                 ->type('price', 25)
                 ->keys('#myDate', $today->day)
@@ -209,7 +210,7 @@ class OfferTest extends DuskTestCase
             $browser->visit('/my');
             $browser->pause(2000);
             $browser->press("Modify")
-                ->type('#name', 'test')
+                ->type('name', 'test')
                 ->type('amount', '75 kg')
                 ->type('price', 25)
                 ->keys('#myDate', $tomorrow->day)

@@ -68,12 +68,12 @@
 : 0;
                         @endphp
                         @if(!App\Models\Reservation::where('offer_id',$offerId)->exists() && !\App\Models\Sale::where('offer_id',$offer->id)->exists())
-                            <span><strong>{{$count}} bids</strong></span>
+                            <span class="bidsClick"><strong>{{$count}} bids</strong></span>
                         @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists() && !App\Models\Reservation::where('offer_id',$offerId)->exists())
                             <span><strong>SOLD</strong></span>
                         @else
                             <a href="{{ route('reservations.show',\App\Models\Reservation::where('offer_id',$offerId)->first()) }}">
-                                <span><strong>{{$count}} bids</strong></span>
+                                <span class="bidsClick"><strong>{{$count}} bids</strong></span>
                             </a>
                         @endif
 

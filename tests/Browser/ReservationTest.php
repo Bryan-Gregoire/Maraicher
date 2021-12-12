@@ -17,26 +17,7 @@ class ReservationTest extends DuskTestCase
      *
      * @return void
      */
-    /*
-    public function test_Buy_withReservation_Offer()
-    {
-        $this->artisan("migrate:fresh --seed");
-        $today = now();
-        $this->browse(function (Browser $browser) use ($today) {
-            //Logging in, if not already logged in
-            $browser->visit('/')
-                ->type('email', "admin@admin.com")
-                ->type("password", "adminpassword")
-                ->press("Login")->visit('/offers')->press('Book')
-                ->assertMissing('#buttons');
 
-            $browser->pause(2000);
-
-
-        });
-
-    }
-*/
     public function test_Choose_Customer_Offer()
     {
         $this->artisan("migrate:fresh --seed");
@@ -45,7 +26,7 @@ class ReservationTest extends DuskTestCase
             $browser->visit('/')
                 ->type('email', "admin@admin.com")
                 ->type("password", "adminpassword")
-                ->press("Login")->visit('/my')->click('#addOffer')->pause(5000)
+                ->press("Login")->visit('/my')->click('#addOffer')->pause(2000)
                 ->type('#name', 'Vache')
                 ->type('amount', '75 kg')
                 ->type('price', 100)
@@ -58,7 +39,7 @@ class ReservationTest extends DuskTestCase
                 ->type('address', 'rue royal 67 botanique')
                 ->press('Add an offer')
                 ->click('#logOut');
-            $browser->pause(1000);
+            $browser->pause(2000);
             $browser->click('#button_not_account')
                 ->type('name', "root")
                 ->type("#registerEmail", "root@root5433.be")
@@ -70,20 +51,22 @@ class ReservationTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', "root2")
-                ->type("#registerEmail", "root2@root4533.be")
+                ->type("#registerEmail", "root2@root4003.be")
                 ->type("#registerPassword", "rootroot")
                 ->type("password_confirmation", "rootroot")
-                ->press("Register");
-            press('Book')
+                ->press("Register")
+                ->visit('/offers')->press('Book')
                 ->click('#logOut');
-
+            $browser->pause(2000);
 
             $browser->visit('/')
                 ->type('email', "admin@admin.com")
                 ->type("password", "adminpassword")
                 ->press("Login")->visit('/offers');
-
-
+            $browser->pause(2000)
+                ->press(".bidsClick")
+                ->press("Choose this buyer !");
+            $browser->assertSee('SOLD');
         });
 
     }
