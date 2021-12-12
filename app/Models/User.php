@@ -49,13 +49,20 @@ class User extends Authenticatable
         return $this->hasMany(Offer::class);
     }
 
-    public function sales(): HasMany
+    public function purchases(): HasMany
     {
-        return $this->hasMany(Sale::class);
+        return $this->hasMany(Purchase::class);
     }
 
     public function reservations(): BelongsToMany
     {
         return $this->belongsToMany(Reservation::class, UserReservation::class);
     }
+
+    public function addresses(): BelongsToMany
+    {
+        return $this->belongsToMany(Address::class, UserAddress::class);
+    }
+
+
 }

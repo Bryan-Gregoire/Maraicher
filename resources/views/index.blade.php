@@ -18,17 +18,12 @@
             @CSRF
             <input type="email" placeholder="Email" name="email" required autofocus>
             <input type="password" placeholder="Password" name="password" required>
-            <label for="remember_me">
-                <input id="remember_me" type="checkbox" name="remember">Remember me
-            </label>
             <button class="btn-submit">Login</button>
         </form>
         <div id="button_not_account">Not account ?</div>
     </div>
 
     <div id="register">
-        <!-- <div class="alert error">Ceci est une erreur de register</div> -->
-
         <form action="{{route('register')}}" method="POST">
             @CSRF
             <input type="text" placeholder="Name" name="name" required>

@@ -1,9 +1,9 @@
 @extends('canvas')
-@section('title', 'My sales')
-@section('title_header', 'Listing your past sales')
+@section('title', 'My purchases')
+@section('title_header', 'Listing your past purchases')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/alllSales.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/allPurchases.css') }}"/>
 @endsection
 
 @section('content')
@@ -13,27 +13,27 @@
     @if (Session::has('error'))
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
-    <table id="sales_list">
+    <table id="purchases_list">
         <tr>
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Date of sale</th>
+            <th>Date of purchase</th>
             <th>Seller</th>
             <th>Address of items</th>
             <th>Action</th>
         </tr>
 
-        @foreach($sales as $sale)
+        @foreach($purchases as $purchase)
             <tr>
-                <td>{{$sale->offer->title}}</td>
-                <td>{{$sale->offer->quantity}}</td>
-                <td>{{$sale->offer->price}} €</td>
-                <td>{{date_format(new DateTime($sale->created_at),'g:ia \o\n l jS F Y')}}</td>
-                <td>{{$sale->offer->user->name}}</td>
-                <td>{{$sale->offer->address}}</td>
+                <td>{{$purchase->offer_title}}</td>
+                <td>{{$purchase->offer_quantity}}</td>
+                <td>{{$purchase->offer_price}} €</td>
+                <td>{{date_format(new DateTime($purchase->created_at),'g:ia \o\n l jS F Y')}}</td>
+                <td>{{$purchase->offer_vendor}}</td>
+                <td>{{$purchase->offer_address}}</td>
                 <td>
-                    <form action="{{route('sales.destroy',$sale)}}" method="POST">
+                    <form action="{{route('purchases.destroy',$purchase)}}" method="POST">
                         @CSRF
                         @method("DELETE")
                         <button class="btn btn-red">Delete</button>

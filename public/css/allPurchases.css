@@ -3,27 +3,27 @@
     display: none;
 }
 
-#sales_list {
+#purchases_list {
     margin: 60px auto;
     width: 70%;
     text-align: center;
     border-collapse: collapse;
 }
 
-#sales_list tr td, #sales_list tr th {
+#purchases_list tr td, #purchases_list tr th {
     padding: 1em;
 }
 
-#sales_list tr th {
+#purchases_list tr th {
     background: #54b17d;
     color: white;
 }
 
-#sales_list tr:nth-child(odd) td {
+#purchases_list tr:nth-child(odd) td {
     background: #9cd3b4;
 }
 
-#sales_list tr:nth-child(even) td {
+#purchases_list tr:nth-child(even) td {
     background: #abd5bd;
 }
 

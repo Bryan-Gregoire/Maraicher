@@ -14,6 +14,13 @@
         <div class="alert error">{{Session::get('error')}}</div>
     @endif
 
+    <form id="search" method="POST" action="{{route('search_bar')}}">
+        @CSRF
+        <div class="inptBar">
+            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar" value="{{ isset($oldValue) ? $oldValue : ""}}">
+        </div>
+        <button id="buttonSearch" class="btn btn-green">Rechercher</button>
+    </form>
     <table id="offers_list">
         <tr>
             <th>Name</th>
@@ -67,17 +74,18 @@
 ? \App\Models\Reservation::where('offer_id',$offerId)->first()->users->count()
 : 0;
                         @endphp
-                        @if(!App\Models\Reservation::where('offer_id',$offerId)->exists() && !\App\Models\Sale::where('offer_id',$offer->id)->exists())
+                        @if(!App\Models\Reservation::where('offer_id',$offerId)->exists() && !\App\Models\Purchase::where('offer_id',$offer->id)->exists())
                             <span><strong>{{$count}} bids</strong></span>
-                        @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists() && !App\Models\Reservation::where('offer_id',$offerId)->exists())
+                        @elseif(\App\Models\Purchase::where('offer_id',$offer->id)->exists() && !App\Models\Reservation::where('offer_id',$offerId)->exists())
+
                             <span><strong>SOLD</strong></span>
                         @else
                             <a href="{{ route('reservations.show',\App\Models\Reservation::where('offer_id',$offerId)->first()) }}">
-                                <span><strong>{{$count}} bids</strong></span>
+                                <span class="bidsClick"><strong>{{$count}} bids</strong></span>
                             </a>
                         @endif
 
-                    @elseif(\App\Models\Sale::where('offer_id',$offer->id)->exists())
+                    @elseif(\App\Models\Purchase::where('offer_id',$offer->id)->exists())
                         <span><strong>SOLD</strong></span>
                     @elseif ($hasReservation )
                         <span><strong>You have reserved</strong></span>

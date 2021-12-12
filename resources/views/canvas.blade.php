@@ -19,7 +19,7 @@
     <nav>
         <a href="/offers"><i class="fa fa-list"></i> Offers</a>
         <a id="account" href="/my"><i class="fa fa-address-book"></i> My offers</a>
-        <a id="past-sales" href="/mySales"><i class="fa fa-money"></i> My sales</a>
+        <a id="past-purchases" href="{{ route('purchases.my') }}"><i class="fa fa-money"></i> My purchases</a>
         <form method="POST" action="{{ route('logout') }}">
             @CSRF
             <a id="logOut" href="" onclick="event.preventDefault(); this.closest('form').submit();">
