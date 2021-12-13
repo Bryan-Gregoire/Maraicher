@@ -34,11 +34,11 @@ class HomeTest extends DuskTestCase
                 ->assertPresent('button.btn-submit')
                 ->assertPresent('#button_not_account')
                 ->assertPresent('#button_already_account')
-                ->assertInputPresent('remember')
+                //->assertInputPresent('remember')
                 //Écran par défaut : boutons présents LOGIN et Not Account ?
                 ->assertSee("Login")
                 ->assertSee("Not account ?")
-                ->assertSee("Remember me")
+                // ->assertSee("Remember me")
                 ->assertDontSee("Register")
                 ->assertDontSee("Already account ?");
             //Après clic sur Not account?, les boutons deviennent Register et Already account ?

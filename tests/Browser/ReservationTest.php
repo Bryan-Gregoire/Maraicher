@@ -57,13 +57,11 @@ class ReservationTest extends DuskTestCase
                 ->press("Register")
                 ->visit('/offers')->press('Book')
                 ->click('#logOut');
-            $browser->pause(2000);
 
             $browser->visit('/')
                 ->type('email', "admin@admin.com")
                 ->type("password", "adminpassword")
-                ->press("Login")->visit('/offers');
-            $browser->pause(2000)
+                ->press("Login")->visit('/offers')
                 ->press(".bidsClick")
                 ->press("Choose this buyer !");
             $browser->assertSee('SOLD');
