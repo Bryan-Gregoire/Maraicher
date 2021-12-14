@@ -58,7 +58,7 @@
                 $after_tomorrow_end = (new DateTime('tomorrow midnight'))
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
-                $formatted_hour = date_format($given_date, 'g:ia');
+                 $formatted_hour = date_format($given_date, 'g:ia');
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
                     $formatted_date = "Today";
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
@@ -71,6 +71,7 @@
                 ?>
 
                 <td>{{$formatted_date}}</td>
+                <td>{{$formatted_hour}}</td>
                 <td>{{$offer->address}}</td>
                 <td id="buttons">
                     @if(\App\Models\Purchase::where('offer_id',$offer->id)->exists())
