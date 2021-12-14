@@ -26,7 +26,8 @@
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Expiration Date</th>
+            <th>DATE</th>
+            <th>HEURE</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
@@ -45,7 +46,6 @@
                 <td>{{$offer->price}} €</td>
                 <?php
                 $given_date = new DateTime($offer->expirationDate);
-
                 $now_midnight = new DateTime('today midnight');
                 $now_end = (new DateTime('today midnight'))->modify("+23 hours")->modify("+59 minutes");
                 $tomorrow_midnight = new DateTime('tomorrow midnight');
@@ -54,17 +54,20 @@
                 $after_tomorrow_end = (new DateTime('tomorrow midnight'))
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
+                $formatted_heure = date_format($given_date, 'g:ia');
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Today";
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
-                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Tomorrow";
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
-                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "After tomorrow ";
                 } else {
-                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                    $formatted_date = date_format($given_date, 'Y-m-d');
                 }
                 ?>
+
                 <td>{{$formatted_date}}</td>
+                <td>{{$formatted_heure}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>
