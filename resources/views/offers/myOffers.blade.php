@@ -37,7 +37,7 @@
             <th>HEURE</th>
             <th>Offer address</th>
             <th>Action</th>
-            <th>prenom</th>
+
         </tr>
         @foreach($offers as $count=> $offer)
             <tr data-idOffre="{{$offer->id}}" data-title="{{$offer->title}}" data-quantity="{{$offer->quantity}}"
@@ -46,8 +46,6 @@
                 <td>{{$offer->title}}</td>
                 <td>{{$offer->quantity}}</td>
                 <td>{{$offer->price}} €</td>
-
-
                 <?php
                 $given_date = new DateTime($offer->expirationDate);
                 $now_midnight = new DateTime('today midnight');
@@ -86,7 +84,6 @@
                     @endif
 
                 </td>
-                <td>{{$offer->user->prenom}}</td>
             </tr>
         @endforeach
     </table>
