@@ -24,7 +24,6 @@
         <input type="datetime-local" name="timeleft" required id="myDate" value="2022-08-14 05:55">
 
 
-
         <div class="autocomplete">
             <input id="adresse" type="text" placeholder="Address" name="address" required>
         </div>
@@ -59,16 +58,18 @@
                 $after_tomorrow_end = (new DateTime('tomorrow midnight'))
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
+                $formatted_hour = date_format($given_date, 'g:ia');
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Today";
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
-                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Tomorrow";
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
-                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "After tomorrow ";
                 } else {
-                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                    $formatted_date = date_format($given_date, 'Y-m-d');
                 }
                 ?>
+
                 <td>{{$formatted_date}}</td>
                 <td>{{$offer->address}}</td>
                 <td id="buttons">
