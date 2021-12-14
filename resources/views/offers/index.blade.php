@@ -30,6 +30,7 @@
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
+            <th>prenom</th>
         </tr>
 
         @foreach($offers as $offer)
@@ -99,6 +100,7 @@
                         </form>
                     @endif
                 </td>
+                <td>{{$offer->user->prenom}}</td>
             </tr>
         @endforeach
     </table>

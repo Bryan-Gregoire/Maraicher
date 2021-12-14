@@ -36,6 +36,7 @@
             <th>Expiration Date</th>
             <th>Offer address</th>
             <th>Action</th>
+            <th>prenom</th>
         </tr>
         @foreach($offers as $count=> $offer)
             <tr data-idOffre="{{$offer->id}}" data-title="{{$offer->title}}" data-quantity="{{$offer->quantity}}"
@@ -81,6 +82,7 @@
                     @endif
 
                 </td>
+                <td>{{$offer->user->prenom}}</td>
             </tr>
         @endforeach
     </table>

@@ -27,6 +27,7 @@
         <form action="{{route('register')}}" method="POST">
             @CSRF
             <input type="text" placeholder="Name" name="name" required>
+            <input type="text" placeholder="prenom" name="prenom" required>
             <input id="registerEmail" type="email" placeholder="Email" name="email" required>
             <input id="registerPassword" type="password" placeholder="Password" name="password" required>
             <input type="password" placeholder="Repeat password" name="password_confirmation" required>
