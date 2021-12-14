@@ -17,7 +17,8 @@
     <form id="search" method="POST" action="{{route('search_bar')}}">
         @CSRF
         <div class="inptBar">
-            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar" value="{{ isset($oldValue) ? $oldValue : ""}}">
+            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar"
+                   value="{{ isset($oldValue) ? $oldValue : ""}}">
         </div>
         <button id="buttonSearch" class="btn btn-green">Rechercher</button>
     </form>
@@ -55,7 +56,7 @@
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today" ;
+                    $formatted_date = "Today";
                     $formatted_time = date_format($given_date, 'g:ia');
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
                     $formatted_date = "Tomorrow ";
@@ -71,7 +72,7 @@
                 <td>{{$formatted_date}}</td>
                 <td>{{$formatted_time}}</td>
                 <td>{{$offer->address}}</td>
-                <td>{{$offer->user->name}}</td>
+                <td>{{$offer->user->first_name ." ". $offer->user->name}}</td>
                 <td>
                     @if($offer->user->id == auth()->id())
                         @php
