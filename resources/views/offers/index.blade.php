@@ -17,7 +17,8 @@
     <form id="search" method="POST" action="{{route('search_bar')}}">
         @CSRF
         <div class="inptBar">
-            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar" value="{{ isset($oldValue) ? $oldValue : ""}}">
+            <input id="inputBar" type="text" name="search_bar" placeholder="Search Bar"
+                   value="{{ isset($oldValue) ? $oldValue : ""}}">
         </div>
         <button id="buttonSearch" class="btn btn-green">Rechercher</button>
     </form>
@@ -27,6 +28,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Expiration Date</th>
+            <th>Expiration Hours</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
@@ -54,16 +56,21 @@
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Today";
+                    $formatted_hours = date_format($given_date, 'G:i');
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
-                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Tomorrow";
+                    $formatted_hours = date_format($given_date, 'G:i');
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
-                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "After tomorrow";
+                    $formatted_hours = date_format($given_date, 'G:i');
                 } else {
-                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                    $formatted_date = date_format($given_date, 'Y-m-d');
+                    $formatted_hours = date_format($given_date, 'G:i');
                 }
                 ?>
                 <td>{{$formatted_date}}</td>
+                <td>{{$formatted_hours}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>

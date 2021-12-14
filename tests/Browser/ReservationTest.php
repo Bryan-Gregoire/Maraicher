@@ -42,6 +42,7 @@ class ReservationTest extends DuskTestCase
             $browser->pause(2000);
             $browser->click('#button_not_account')
                 ->type('name', "root")
+                ->type('firstname', "firstnameroot")
                 ->type("#registerEmail", "root@root5433.be")
                 ->type("#registerPassword", "rootroot")
                 ->type("password_confirmation", "rootroot")
@@ -51,6 +52,7 @@ class ReservationTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', "root2")
+                ->type('firstname', "firstnameroot2")
                 ->type("#registerEmail", "root2@root4003.be")
                 ->type("#registerPassword", "rootroot")
                 ->type("password_confirmation", "rootroot")

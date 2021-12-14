@@ -8,23 +8,21 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class HomeTest extends DuskTestCase
-{
+class HomeTest extends DuskTestCase {
     use DatabaseMigrations;
 
     // Test le code 200 de la page d'accueil
-    public function test_home_status()
-    {
+    public function test_home_status() {
         $this->get('/')->assertStatus(200);
     }
 
     //Teste que les éléments de connexion sont présents dans l'HTML
 
-    public function test_home_form_shown()
-    {
+    public function test_home_form_shown() {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                 ->assertSee("Connection on Maraîcher-ESI")
+                ->assertInputPresent('firstname')
                 ->assertInputPresent('name')
                 //DEUX FOIS : LOGIN et REGISTER
                 ->assertInputPresent('email')
@@ -53,8 +51,7 @@ class HomeTest extends DuskTestCase
 
 
     public
-    function test_incorrect_user_details()
-    {
+    function test_incorrect_user_details() {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
                 ->type('email', "test@test.com")
@@ -67,14 +64,14 @@ class HomeTest extends DuskTestCase
         });
     }
 
-    public function test_existing_email_cannot_be_taken()
-    {
+    public function test_existing_email_cannot_be_taken() {
         $this->artisan("migrate:fresh");
         $user = User::factory()->create();
         $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', $user->name)
+                ->type('firstname', $user->firstname)
                 ->type('#registerEmail', $user->email)
                 //PASS is encrypted anyway
                 ->type('#registerPassword', "123456789")
@@ -87,13 +84,13 @@ class HomeTest extends DuskTestCase
         });
     }
 
-    public function test_password_confirmation_not_matching()
-    {
+    public function test_password_confirmation_not_matching() {
         $this->artisan("migrate:fresh");
         $this->browse(function (Browser $browser) {
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', "Test name")
+                ->type('firstname', "Test firstname")
                 ->type('#registerEmail', 'email@test.com')
                 ->type('#registerPassword', '123456789')
                 ->type('password_confirmation', "0123456789")
@@ -105,8 +102,7 @@ class HomeTest extends DuskTestCase
         });
     }
 
-    public function test_correct_user()
-    {
+    public function test_correct_user() {
         $this->artisan("migrate:fresh --seed");
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
@@ -120,8 +116,7 @@ class HomeTest extends DuskTestCase
         });
     }
 
-    public function test_correct_new_registration()
-    {
+    public function test_correct_new_registration() {
         $this->artisan("migrate:fresh --seed");
         $newUser = User::factory()->make();
         $newUser->password = "password";
@@ -134,6 +129,7 @@ class HomeTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', $newUser->name)
+                ->type('firstname', $newUser->firstname)
                 ->type("#registerEmail", $newUser->email)
                 ->type("#registerPassword", $newUser->password)
                 ->type("password_confirmation", $newUser->password)
@@ -145,6 +141,7 @@ class HomeTest extends DuskTestCase
         });
         $this->assertDatabaseHas('users', [
             'name' => $newUser->name,
+            'firstname' => $newUser->firstname,
             'email' => $newUser->email
         ]);
     }

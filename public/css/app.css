@@ -192,14 +192,18 @@ input[type=password] {
     }
 
     #offers_list td:nth-of-type(5):before {
-        content: "Offer address";
+        content: "Expiration Hours";
     }
 
     #offers_list td:nth-of-type(6):before {
-        content: "User";
+        content: "Offer address";
     }
 
     #offers_list td:nth-of-type(7):before {
+        content: "User";
+    }
+
+    #offers_list td:nth-of-type(8):before {
         content: "Action";
     }
     body{
