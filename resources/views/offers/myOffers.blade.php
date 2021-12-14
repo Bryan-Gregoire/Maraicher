@@ -34,6 +34,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Expiration Date</th>
+            <th>Expiration Date hours</th>
             <th>Offer address</th>
             <th>Action</th>
         </tr>
@@ -57,16 +58,25 @@
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Today" ;
+                    $formatted_date_hours= date_format($given_date, ' g:i a');
+
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
-                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Tomorrow  ";
+                    $formatted_date_hours= date_format($given_date, ' g:i a');
+
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
-                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "After tomorrow ";
+                    $formatted_date_hours= date_format($given_date, ' g:i a');
+
                 } else {
-                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                    $formatted_date = date_format($given_date, 'Y-m-d');
+                    $formatted_date_hours= date_format($given_date, 'g:i a');
                 }
                 ?>
                 <td>{{$formatted_date}}</td>
+                <td>{{$formatted_date_hours}}</td>
+
                 <td>{{$offer->address}}</td>
                 <td id="buttons">
                     @if(\App\Models\Purchase::where('offer_id',$offer->id)->exists())

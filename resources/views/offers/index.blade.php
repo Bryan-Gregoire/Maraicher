@@ -26,7 +26,8 @@
             <th>Name</th>
             <th>Quantity</th>
             <th>Price</th>
-            <th>Expiration Date</th>
+            <th>Expiration Date </th>
+            <th>Expiration Date hours</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
