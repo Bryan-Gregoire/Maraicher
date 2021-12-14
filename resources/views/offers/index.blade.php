@@ -27,6 +27,7 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Expiration Date</th>
+            <th>Expiration Time</th>
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
@@ -54,16 +55,21 @@
                     ->modify("+1 day")->modify("+23 hours")->modify("+59 minutes");
 
                 if ($given_date >= $now_midnight && $given_date <= $now_end) {
-                    $formatted_date = "Today at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Today" ;
+                    $formatted_time = date_format($given_date, 'g:ia');
                 } else if ($given_date >= $tomorrow_midnight && $given_date <= $tomorrow_end) {
-                    $formatted_date = "Tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "Tomorrow ";
+                    $formatted_time = date_format($given_date, 'g:ia');
                 } else if ($given_date >= $after_tomorrow_midnight && $given_date <= $after_tomorrow_end) {
-                    $formatted_date = "After tomorrow at " . date_format($given_date, 'g:ia');
+                    $formatted_date = "After tomorrow ";
+                    $formatted_time = date_format($given_date, 'g:ia');
                 } else {
-                    $formatted_date = date_format($given_date, 'Y-m-d, g:i a');
+                    $formatted_date = date_format($given_date, 'Y-m-d');
+                    $formatted_time = date_format($given_date, 'g:i a');
                 }
                 ?>
                 <td>{{$formatted_date}}</td>
+                <td>{{$formatted_time}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
                 <td>
