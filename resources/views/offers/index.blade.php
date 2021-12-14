@@ -24,7 +24,6 @@
     <table id="offers_list">
         <tr>
             <th>Name</th>
-            <th>prenom</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>DATE</th>
@@ -32,7 +31,7 @@
             <th>Offer address</th>
             <th>User</th>
             <th>Action</th>
-
+            <th>prenom</th>
         </tr>
 
         @foreach($offers as $offer)
@@ -71,7 +70,6 @@
                 <td>{{$formatted_heure}}</td>
                 <td>{{$offer->address}}</td>
                 <td>{{$offer->user->name}}</td>
-                <td>{{$offer->user->prenom}}</td>
                 <td>
                     @if($offer->user->id == auth()->id())
                         @php
@@ -105,7 +103,7 @@
                         </form>
                     @endif
                 </td>
-
+                <td>{{$offer->user->prenom}}</td>
             </tr>
         @endforeach
     </table>
