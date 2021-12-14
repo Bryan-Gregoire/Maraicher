@@ -41,6 +41,7 @@ class BuyerChosenNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
+            ->greeting("Salut ")
             ->line('Maraicher-ESI, offre acceptée')
             ->action("Vérifier l'offre", url('/myPurchases'))
             ->line("Merci d'avoir utilisé Maraicher - ESI");

@@ -26,6 +26,7 @@ class HomeTest extends DuskTestCase
             $browser->visit('/')
                 ->assertSee("Connection on Maraîcher-ESI")
                 ->assertInputPresent('name')
+                ->assertInputPresent('first_name')
                 //DEUX FOIS : LOGIN et REGISTER
                 ->assertInputPresent('email')
                 //DEUX FOIS : LOGIN et REGISTER
@@ -75,6 +76,7 @@ class HomeTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', $user->name)
+                ->type('first_name', $user->first_name)
                 ->type('#registerEmail', $user->email)
                 //PASS is encrypted anyway
                 ->type('#registerPassword', "123456789")
@@ -94,6 +96,7 @@ class HomeTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', "Test name")
+                ->type('first_name', "Test first name")
                 ->type('#registerEmail', 'email@test.com')
                 ->type('#registerPassword', '123456789')
                 ->type('password_confirmation', "0123456789")
@@ -134,6 +137,7 @@ class HomeTest extends DuskTestCase
             $browser->visit('/');
             $browser->click('#button_not_account')
                 ->type('name', $newUser->name)
+                ->type('first_name', $newUser->first_name)
                 ->type("#registerEmail", $newUser->email)
                 ->type("#registerPassword", $newUser->password)
                 ->type("password_confirmation", $newUser->password)
@@ -145,6 +149,7 @@ class HomeTest extends DuskTestCase
         });
         $this->assertDatabaseHas('users', [
             'name' => $newUser->name,
+            'first_name' => $newUser->first_name,
             'email' => $newUser->email
         ]);
     }
