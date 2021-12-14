@@ -22,6 +22,9 @@
         <input id="amount" type="text" placeholder="Amount" name="amount" required>
         <input id="price" type="number" placeholder="Price" name="price" required>
         <input type="datetime-local" name="timeleft" required id="myDate" value="2022-08-14 05:55">
+
+
+
         <div class="autocomplete">
             <input id="adresse" type="text" placeholder="Address" name="address" required>
         </div>
